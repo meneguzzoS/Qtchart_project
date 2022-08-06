@@ -1,1 +1,1 @@
-# QtChart_project
+# Qtchart_project
