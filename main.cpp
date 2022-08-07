@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     MainWindow w;
     //w.show();
 
-    table q;h
+    table q;
     q.show();
 
     return a.exec();
