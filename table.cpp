@@ -29,12 +29,6 @@ table::table()
         header<<"Nome Prodotto"<<"Prezzo"<<"Data"<<"Tipo prodotto";
         tabella->setHorizontalHeaderLabels(header);
 
-        //setRowCount(0);
-        /*QLineEdit* nome = new QLineEdit();
-        QDoubleSpinBox *prezzo = new QDoubleSpinBox();
-        QDateEdit *data = new QDateEdit();
-        QComboBox* tipo = new QComboBox();*/
-
         submitButton = new QPushButton(tr("Invia"));
         submitButton->setDefault(true);
         removeButton = new QPushButton(tr("Rimuovi"));
@@ -102,17 +96,26 @@ table::table()
         mainLayout->addLayout(FieldLayout);
         mainLayout->addWidget(buttonBox);
 
-        qDebug() << tabella->currentRow();
+        //qDebug() << tabella->currentRow();
 
         setLayout(mainLayout);
         connect(quitButton,SIGNAL(clicked(bool)),this,SLOT(close()));
-        connect(removeButton,SIGNAL(clicked(bool)),tabella,SLOT(deleteLater()));
+        connect(removeButton,SIGNAL(clicked(bool)),this,SLOT(deleteLastRow()));
+        connect(submitButton,SIGNAL(clicked(bool)),this,SLOT(addRow()));
 }
 
 void table::deleteLastRow()
 {
     int row = tabella->currentRow();
-    //QTableWidget::removeRow(row);
     tabella->removeRow(row);
-    emit Remove();
+}
+
+void table::addRow()
+{
+    qDebug() << Nome->text() << data->text() << prezzo->text() << tipo->currentText();
+    QString stringa = Nome->text();
+    int row = tabella->currentRow();
+    QTableWidgetItem *item = new QTableWidgetItem;
+    item->setText(stringa);
+    tabella->setItem(row+1,0,item);
 }

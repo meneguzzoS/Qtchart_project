@@ -26,10 +26,9 @@ private:
     QDoubleSpinBox* prezzo;
     QLineEdit* data;
     QComboBox* tipo;
-signals:
-    void Remove();
 public slots:
     void deleteLastRow();
+    void addRow();
 };
 
 #endif // TABLE_H
