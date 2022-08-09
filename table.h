@@ -9,6 +9,7 @@
 #include "record.h"
 #include <QList>
 #include <QTableWidget>
+#include <QDateEdit>
 
 class table : public QWidget
 {
@@ -24,7 +25,7 @@ private:
     QDialogButtonBox *buttonBox;
     QLineEdit* Nome;
     QDoubleSpinBox* prezzo;
-    QLineEdit* data;
+    QDateEdit* data;
     QComboBox* tipo;
 public slots:
     void deleteLastRow();

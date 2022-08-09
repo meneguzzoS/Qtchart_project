@@ -10,14 +10,19 @@ class record
 private:
     QString productName;
     QDate data;
-    unsigned int prezzo;
+    double prezzo;
     productType statoProdotto;
 public:
+    record();
     record(QString, QDate, unsigned int, productType);
     QString getName() const;
     QDate getData() const;
-    unsigned int getPrezzo() const;
+    double getPrezzo() const;
     productType getStato() const;
+    void setName(const QString&);
+    void setData(const QDate&);
+    void setPrezzo(double);
+    void setTipo(unsigned int);
 };
 
 #endif // RECORD_H

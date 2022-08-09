@@ -12,7 +12,8 @@ table::table()
 {
         setWindowTitle("Tabella prodotti");
 
-        record b(QString("prodotto1"), QDate(2010,11,11), 8, Usato);
+        //creazione record
+        record b("prodotto1", QDate(2010,11,11), 8, Usato);
         record c("prodotto2", QDate(2011,8,21), 9, Nuovo);
         record d("prodotto3", QDate(2009,3,2), 14, Ricondizionato);
 
@@ -20,6 +21,7 @@ table::table()
         lista.push_back(c);
         lista.push_back(d);
 
+        //creazione tabella
         tabella = new QTableWidget;
         tabella->setColumnCount(4);
         tabella->setRowCount(lista.size());
@@ -29,42 +31,7 @@ table::table()
         header<<"Nome Prodotto"<<"Prezzo"<<"Data"<<"Tipo prodotto";
         tabella->setHorizontalHeaderLabels(header);
 
-        submitButton = new QPushButton(tr("Invia"));
-        submitButton->setDefault(true);
-        removeButton = new QPushButton(tr("Rimuovi"));
-        quitButton = new QPushButton(tr("Annulla"));
-
-        buttonBox = new QDialogButtonBox(Qt::Horizontal);
-        buttonBox->addButton(submitButton, QDialogButtonBox::ActionRole);
-        buttonBox->addButton(removeButton, QDialogButtonBox::ActionRole);
-        buttonBox->addButton(quitButton, QDialogButtonBox::RejectRole);
-
-        Nome = new QLineEdit();
-        QLabel *NomeLabel = new QLabel("Nome prodotto: ");
-        Nome->setPlaceholderText("Nome");
-        Nome->setToolTip("Inserisci il Nome");
-        data = new QLineEdit();
-        QLabel *DataLabel = new QLabel("Data: ");
-        data->setPlaceholderText("Data");
-        data->setToolTip("Inserisci la data");
-        prezzo = new QDoubleSpinBox();
-        QLabel *PrezzoLabel = new QLabel("Prezzo: ");
-        tipo = new QComboBox();
-        QLabel *TipoLabel = new QLabel("Tipo prodotto: ");
-        tipo->insertItem(1,"Nuovo");
-        tipo->insertItem(2,"Usato");
-        tipo->insertItem(3,"Ricondizionato");
-
-        QGridLayout *FieldLayout = new QGridLayout;
-        FieldLayout->addWidget(NomeLabel, 0, 0);
-        FieldLayout->addWidget(Nome, 0, 1);
-        FieldLayout->addWidget(PrezzoLabel,1,0);
-        FieldLayout->addWidget(prezzo,1,1);
-        FieldLayout->addWidget(DataLabel,2,0);
-        FieldLayout->addWidget(data,2,1);
-        FieldLayout->addWidget(TipoLabel,3,0);
-        FieldLayout->addWidget(tipo,3,1);
-
+        //riempire tabella con record in lista
         QTableWidgetItem *item;
         for(int i=0; i<tabella->rowCount(); i++) {
 
@@ -91,6 +58,45 @@ table::table()
             }
         }
 
+        //creazione campi dati editabili
+        Nome = new QLineEdit();
+        QLabel *NomeLabel = new QLabel("Nome prodotto: ");
+        Nome->setPlaceholderText("iPhone 10");
+        Nome->setToolTip("Inserisci il Nome");
+        data = new QDateEdit();
+        QLabel *DataLabel = new QLabel("Data: ");
+        data->setToolTip("Inserisci la data");
+        data->setDisplayFormat("dd.MM.yyyy");
+        prezzo = new QDoubleSpinBox();
+        QLabel *PrezzoLabel = new QLabel("Prezzo: ");
+        tipo = new QComboBox();
+        QLabel *TipoLabel = new QLabel("Tipo prodotto: ");
+        tipo->insertItem(1,"Nuovo");
+        tipo->insertItem(2,"Usato");
+        tipo->insertItem(3,"Ricondizionato");
+
+        QGridLayout *FieldLayout = new QGridLayout;
+        FieldLayout->addWidget(NomeLabel, 0, 0);
+        FieldLayout->addWidget(Nome, 0, 1);
+        FieldLayout->addWidget(PrezzoLabel,1,0);
+        FieldLayout->addWidget(prezzo,1,1);
+        FieldLayout->addWidget(DataLabel,2,0);
+        FieldLayout->addWidget(data,2,1);
+        FieldLayout->addWidget(TipoLabel,3,0);
+        FieldLayout->addWidget(tipo,3,1);
+
+        //creazione pulsanti
+        submitButton = new QPushButton(tr("Invia"));
+        submitButton->setDefault(true);
+        removeButton = new QPushButton(tr("Rimuovi"));
+        quitButton = new QPushButton(tr("Annulla"));
+
+        buttonBox = new QDialogButtonBox(Qt::Horizontal);
+        buttonBox->addButton(submitButton, QDialogButtonBox::ActionRole);
+        buttonBox->addButton(removeButton, QDialogButtonBox::ActionRole);
+        buttonBox->addButton(quitButton, QDialogButtonBox::RejectRole);
+
+        //sistemazione layout
         QVBoxLayout *mainLayout = new QVBoxLayout;
         mainLayout->addWidget(tabella);
         mainLayout->addLayout(FieldLayout);
@@ -108,14 +114,27 @@ void table::deleteLastRow()
 {
     int row = tabella->currentRow();
     tabella->removeRow(row);
+    if(lista.size()>0)
+        lista.pop_back();
 }
 
 void table::addRow()
 {
-    qDebug() << Nome->text() << data->text() << prezzo->text() << tipo->currentText();
-    QString stringa = Nome->text();
-    int row = tabella->currentRow();
-    QTableWidgetItem *item = new QTableWidgetItem;
-    item->setText(stringa);
-    tabella->setItem(row+1,0,item);
+    record nuovo;
+    nuovo.setName(Nome->text());
+    nuovo.setData(data->date());
+    nuovo.setPrezzo(prezzo->value());
+    nuovo.setTipo(tipo->currentIndex());
+    lista.push_back(nuovo);
+
+    int row = tabella->rowCount();
+    tabella->insertRow(row);
+    tabella->setItem(row, 0, new QTableWidgetItem(nuovo.getName()));
+    tabella->setItem(row, 1, new QTableWidgetItem(QString::number(nuovo.getPrezzo())));
+    tabella->setItem(row, 2, new QTableWidgetItem(nuovo.getData().toString("dd.MM.yyyy")));
+    switch(nuovo.getStato()) {
+    case Nuovo: tabella->setItem(row, 3, new QTableWidgetItem("Nuovo")); break;
+    case Usato: tabella->setItem(row, 3, new QTableWidgetItem("Usato")); break;
+    case Ricondizionato: tabella->setItem(row, 3, new QTableWidgetItem("Ricondizionato")); break;
+    }
 }
