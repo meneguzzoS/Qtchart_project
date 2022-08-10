@@ -23,6 +23,7 @@ private:
     QPushButton *removeButton;
     QPushButton *quitButton;
     QPushButton *loadButton;
+    QPushButton *printFileButton;
     QDialogButtonBox *buttonBox;
     QLineEdit* Nome;
     QDoubleSpinBox* prezzo;
@@ -31,7 +32,8 @@ private:
 public slots:
     void deleteLastRow();
     void addRow();
-    void selectFile();
+    void importData();
+    void exportFile();
 };
 
 #endif // TABLE_H

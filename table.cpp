@@ -93,10 +93,12 @@ table::table()
         submitButton->setDefault(true);
         removeButton = new QPushButton(tr("Rimuovi"));
         quitButton = new QPushButton(tr("Annulla"));
-        loadButton = new QPushButton(tr("Load Data"));
+        loadButton = new QPushButton(tr("Carica Dati"));
+        printFileButton = new QPushButton(tr("Stampa su file"));
 
         buttonBox = new QDialogButtonBox(Qt::Horizontal);
         buttonBox->addButton(loadButton, QDialogButtonBox::ActionRole);
+        buttonBox->addButton(printFileButton, QDialogButtonBox::ActionRole);
         buttonBox->addButton(submitButton, QDialogButtonBox::ActionRole);
         buttonBox->addButton(removeButton, QDialogButtonBox::ActionRole);
         buttonBox->addButton(quitButton, QDialogButtonBox::RejectRole);
@@ -113,7 +115,8 @@ table::table()
         connect(quitButton,SIGNAL(clicked(bool)),this,SLOT(close()));
         connect(removeButton,SIGNAL(clicked(bool)),this,SLOT(deleteLastRow()));
         connect(submitButton,SIGNAL(clicked(bool)),this,SLOT(addRow()));
-        connect(loadButton,SIGNAL(clicked(bool)),this,SLOT(selectFile()));
+        connect(loadButton,SIGNAL(clicked(bool)),this,SLOT(importData()));
+        connect(printFileButton,SIGNAL(clicked(bool)),this,SLOT(exportFile()));
 }
 
 void table::deleteLastRow()
@@ -146,29 +149,58 @@ void table::addRow()
     tabella->setCurrentCell(row,3);
 }
 
-void table::selectFile()
+void table::importData()
 {
     QString filename = QFileDialog::getOpenFileName(this, "Apri il tuo file", QDir::homePath(), "CSV File (*.csv)");
+    qDebug()<<filename;
     QFile targetFile(filename);
 
-        if(!targetFile.open(QFile::ReadOnly | QFile::Text)) {
-            qDebug() << "Impossibile leggere il file";
-            return;
-        }
+    if(!targetFile.open(QFile::ReadOnly | QFile::Text)) {
+        qDebug() << "Impossibile leggere il file";
+        return;
+    }
 
-        QTextStream in(&targetFile);
+    QTextStream in(&targetFile);
 
-        int row;
-        while(!in.atEnd()) {
-            QString line = in.readLine(); // \n
-            QStringList data = line.split(',');
-            row = tabella->rowCount();
-            tabella->insertRow(row);
-            tabella->setItem(row, 0, new QTableWidgetItem(data.at(0)));
-            tabella->setItem(row, 1, new QTableWidgetItem(data.at(1)));
-            tabella->setItem(row, 2, new QTableWidgetItem(data.at(2)));
-            tabella->setItem(row, 3, new QTableWidgetItem(data.at(3)));
-            tabella->setCurrentCell(row,3);
-            qDebug() << data;
+    int row;
+    while(!in.atEnd()) {
+        QString line = in.readLine(); // \n
+        QStringList data = line.split(',');
+        row = tabella->rowCount();
+        tabella->insertRow(row);
+        tabella->setItem(row, 0, new QTableWidgetItem(data.at(0)));
+        tabella->setItem(row, 1, new QTableWidgetItem(data.at(1)));
+        tabella->setItem(row, 2, new QTableWidgetItem(data.at(2)));
+        tabella->setItem(row, 3, new QTableWidgetItem(data.at(3)));
+        tabella->setCurrentCell(row,3);
+        qDebug() << data;
+    }
+}
+
+void table::exportFile()
+{
+    // Creazione oggetto "destinazione"
+    QFile targetFile("/home/stmenegu/stampa.csv");
+
+    // Apertura file in scrittura
+    if(!targetFile.open(QFile::WriteOnly | QFile::Text)) {
+        qDebug() << "File impossibile da aprire";
+        return;
+    }
+
+    // Creazione stream di dati VERSO il file
+    QTextStream out(&targetFile);
+    QStringList strList;
+
+    for(int r=0; r< tabella->rowCount(); r++) {
+        strList.clear();
+        for(int c=0;c<tabella->columnCount(); c++) {
+            tabella->setCurrentCell(r,c);
+            strList << tabella->currentItem()->text();
         }
+        out << strList.join(",")+"\n";
+    }
+
+    targetFile.flush();
+    targetFile.close();
 }
