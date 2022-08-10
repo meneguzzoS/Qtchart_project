@@ -7,6 +7,8 @@
 #include <QDateEdit>
 #include <QDebug>
 #include <QtWidgets>
+#include <QFileDialog>
+#include <QDir>
 
 table::table()
 {
@@ -69,6 +71,7 @@ table::table()
         data->setDisplayFormat("dd.MM.yyyy");
         prezzo = new QDoubleSpinBox();
         QLabel *PrezzoLabel = new QLabel("Prezzo: ");
+        prezzo->setRange(0, 10000);
         tipo = new QComboBox();
         QLabel *TipoLabel = new QLabel("Tipo prodotto: ");
         tipo->insertItem(1,"Nuovo");
@@ -90,8 +93,10 @@ table::table()
         submitButton->setDefault(true);
         removeButton = new QPushButton(tr("Rimuovi"));
         quitButton = new QPushButton(tr("Annulla"));
+        loadButton = new QPushButton(tr("Load Data"));
 
         buttonBox = new QDialogButtonBox(Qt::Horizontal);
+        buttonBox->addButton(loadButton, QDialogButtonBox::ActionRole);
         buttonBox->addButton(submitButton, QDialogButtonBox::ActionRole);
         buttonBox->addButton(removeButton, QDialogButtonBox::ActionRole);
         buttonBox->addButton(quitButton, QDialogButtonBox::RejectRole);
@@ -108,6 +113,7 @@ table::table()
         connect(quitButton,SIGNAL(clicked(bool)),this,SLOT(close()));
         connect(removeButton,SIGNAL(clicked(bool)),this,SLOT(deleteLastRow()));
         connect(submitButton,SIGNAL(clicked(bool)),this,SLOT(addRow()));
+        connect(loadButton,SIGNAL(clicked(bool)),this,SLOT(selectFile()));
 }
 
 void table::deleteLastRow()
@@ -137,4 +143,32 @@ void table::addRow()
     case Usato: tabella->setItem(row, 3, new QTableWidgetItem("Usato")); break;
     case Ricondizionato: tabella->setItem(row, 3, new QTableWidgetItem("Ricondizionato")); break;
     }
+    tabella->setCurrentCell(row,3);
+}
+
+void table::selectFile()
+{
+    QString filename = QFileDialog::getOpenFileName(this, "Apri il tuo file", QDir::homePath(), "CSV File (*.csv)");
+    QFile targetFile(filename);
+
+        if(!targetFile.open(QFile::ReadOnly | QFile::Text)) {
+            qDebug() << "Impossibile leggere il file";
+            return;
+        }
+
+        QTextStream in(&targetFile);
+
+        int row;
+        while(!in.atEnd()) {
+            QString line = in.readLine(); // \n
+            QStringList data = line.split(',');
+            row = tabella->rowCount();
+            tabella->insertRow(row);
+            tabella->setItem(row, 0, new QTableWidgetItem(data.at(0)));
+            tabella->setItem(row, 1, new QTableWidgetItem(data.at(1)));
+            tabella->setItem(row, 2, new QTableWidgetItem(data.at(2)));
+            tabella->setItem(row, 3, new QTableWidgetItem(data.at(3)));
+            tabella->setCurrentCell(row,3);
+            qDebug() << data;
+        }
 }
