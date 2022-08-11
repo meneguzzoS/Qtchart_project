@@ -161,11 +161,15 @@ void table::importData()
     }
 
     QTextStream in(&targetFile);
+    record nuovo;
 
     int row;
     while(!in.atEnd()) {
         QString line = in.readLine(); // \n
+        line = line.simplified();
+        line.replace(" ",""); //rimuove gli spazi bianchi
         QStringList data = line.split(',');
+
         row = tabella->rowCount();
         tabella->insertRow(row);
         tabella->setItem(row, 0, new QTableWidgetItem(data.at(0)));
@@ -173,14 +177,29 @@ void table::importData()
         tabella->setItem(row, 2, new QTableWidgetItem(data.at(2)));
         tabella->setItem(row, 3, new QTableWidgetItem(data.at(3)));
         tabella->setCurrentCell(row,3);
-        qDebug() << data;
+
+        //inserisco elementi appena presi dal file nella lista
+        nuovo.setName(data.at(0));
+        nuovo.setPrezzo(QString(data.at(1)).toInt());
+        nuovo.setData(QDate::fromString(QString(data.at(2)), "dd.MM.yyyy"));
+        if(data.at(3)=="Nuovo")
+            nuovo.setTipo(0);
+        if(data.at(3)=="Usato")
+            nuovo.setTipo(1);
+        if(data.at(3)=="Ricondizionato")
+            nuovo.setTipo(2);
+        lista.push_back(nuovo);
+    }
+    for(int i=0; i<lista.size();i++) {
+        qDebug() << lista.at(i).getName() << lista.at(i).getPrezzo() << lista.at(i).getData() << lista.at(i).getStato();
     }
 }
 
 void table::exportFile()
 {
     // Creazione oggetto "destinazione"
-    QFile targetFile("/home/stmenegu/stampa.csv");
+    QString filename = QFileDialog::getOpenFileName(this, "Seleziona il tuo file di destinazione", QDir::homePath(), "CSV File (*.csv)");
+    QFile targetFile(filename);
 
     // Apertura file in scrittura
     if(!targetFile.open(QFile::WriteOnly | QFile::Text)) {
