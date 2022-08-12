@@ -9,19 +9,21 @@
 #include <QtWidgets>
 #include <QFileDialog>
 #include <QDir>
+#include <listacontroller.h>
 
 table::table()
 {
         setWindowTitle("Tabella prodotti");
+        dataController = new ListaController(&lista);
 
         //creazione record
-        record b("prodotto1", QDate(2010,11,11), 8, Usato);
-        record c("prodotto2", QDate(2011,8,21), 9, Nuovo);
-        record d("prodotto3", QDate(2009,3,2), 14, Ricondizionato);
+//        record b("prodotto1", QDate(2010,11,11), 8, Usato);
+//        record c("prodotto2", QDate(2011,8,21), 9, Nuovo);
+//        record d("prodotto3", QDate(2009,3,2), 14, Ricondizionato);
 
-        lista.push_back(b);
-        lista.push_back(c);
-        lista.push_back(d);
+//        dataController->addToList(b);
+//        dataController->addToList(c);
+//        dataController->addToList(d);
 
         //creazione tabella
         tabella = new QTableWidget;
@@ -124,7 +126,7 @@ void table::deleteLastRow()
     int row = tabella->currentRow();
     tabella->removeRow(row);
     if(lista.size()>0)
-        lista.pop_back();
+        dataController->removeFromList();
 }
 
 void table::addRow()
@@ -134,7 +136,7 @@ void table::addRow()
     nuovo.setData(data->date());
     nuovo.setPrezzo(prezzo->value());
     nuovo.setTipo(tipo->currentIndex());
-    lista.push_back(nuovo);
+    dataController->addToList(nuovo);
 
     int row = tabella->rowCount();
     tabella->insertRow(row);
@@ -188,7 +190,7 @@ void table::importData()
             nuovo.setTipo(1);
         if(data.at(3)=="Ricondizionato")
             nuovo.setTipo(2);
-        lista.push_back(nuovo);
+        dataController->addToList(nuovo);
     }
     for(int i=0; i<lista.size();i++) {
         qDebug() << lista.at(i).getName() << lista.at(i).getPrezzo() << lista.at(i).getData() << lista.at(i).getStato();
@@ -198,8 +200,8 @@ void table::importData()
 void table::exportFile()
 {
     // Creazione oggetto "destinazione"
-    QString filename = QFileDialog::getOpenFileName(this, "Seleziona il tuo file di destinazione", QDir::homePath(), "CSV File (*.csv)");
-    QFile targetFile(filename);
+    QString filename = QFileDialog::getSaveFileName(this, "Seleziona il tuo file di destinazione", QDir::homePath(), "CSV File (*.csv)");
+    QFile targetFile(filename.append(".csv"));
 
     // Apertura file in scrittura
     if(!targetFile.open(QFile::WriteOnly | QFile::Text)) {
@@ -223,3 +225,4 @@ void table::exportFile()
     targetFile.flush();
     targetFile.close();
 }
+

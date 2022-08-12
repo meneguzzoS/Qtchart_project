@@ -24,12 +24,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+    listacontroller.cpp \
         main.cpp \
         mainwindow.cpp \
     record.cpp \
+    stackedbarchart.cpp \
     table.cpp
 
 HEADERS += \
+    listacontroller.h \
         mainwindow.h \
     record.h \
+    stackedbarchart.h \
     table.h

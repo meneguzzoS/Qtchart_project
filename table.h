@@ -7,6 +7,7 @@
 #include <QDoubleSpinBox>
 #include <QComboBox>
 #include "record.h"
+#include "listacontroller.h"
 #include <QList>
 #include <QTableWidget>
 #include <QDateEdit>
@@ -29,6 +30,7 @@ private:
     QDoubleSpinBox* prezzo;
     QDateEdit* data;
     QComboBox* tipo;
+    ListaController *dataController;
 public slots:
     void deleteLastRow();
     void addRow();
