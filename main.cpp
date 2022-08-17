@@ -9,10 +9,10 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    //w.show();
+    w.show();
 
     table q;
-    q.show();
+    //q.show();
 
     return a.exec();
 }

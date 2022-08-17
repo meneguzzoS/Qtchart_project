@@ -3,26 +3,26 @@
 #include<QString>
 #include<QDate>
 
-enum productType {Nuovo, Usato, Ricondizionato};
+enum MacroArea {Europa, Asia, America, Africa, Oceania};
 
 class record
 {
 private:
-    QString productName;
+    QString nomeStato;
     QDate data;
-    double prezzo;
-    productType statoProdotto;
+    double PIL;
+    MacroArea continente;
 public:
     record();
-    record(QString, QDate, unsigned int, productType);
+    record(QString, QDate, unsigned int, MacroArea);
     QString getName() const;
     QDate getData() const;
-    double getPrezzo() const;
-    productType getStato() const;
+    double getPIL() const;
+    MacroArea getContinente() const;
     void setName(const QString&);
     void setData(const QDate&);
-    void setPrezzo(double);
-    void setTipo(unsigned int);
+    void setPIL(double);
+    void setContinente(unsigned int);
 };
 
 #endif // RECORD_H

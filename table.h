@@ -10,6 +10,7 @@
 #include <QList>
 #include <QTableWidget>
 #include <QDateEdit>
+#include "listacontroller.h"
 
 class table : public QWidget
 {
@@ -26,9 +27,10 @@ private:
     QPushButton *printFileButton;
     QDialogButtonBox *buttonBox;
     QLineEdit* Nome;
-    QDoubleSpinBox* prezzo;
+    QDoubleSpinBox* PIL;
     QDateEdit* data;
-    QComboBox* tipo;
+    QComboBox* continente;
+    listaController *dataController;
 public slots:
     void deleteLastRow();
     void addRow();

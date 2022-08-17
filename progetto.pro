@@ -27,9 +27,13 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     record.cpp \
-    table.cpp
+    table.cpp \
+    listacontroller.cpp \
+    piechartdataset.cpp
 
 HEADERS += \
         mainwindow.h \
     record.h \
-    table.h
+    table.h \
+    listacontroller.h \
+    piechartdataset.h
