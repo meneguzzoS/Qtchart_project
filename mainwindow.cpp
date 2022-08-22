@@ -5,14 +5,21 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    QPushButton *open = new QPushButton(tr("Apri tabella"));
+    QPushButton *pieChart = new QPushButton(tr("Pie Chart"), this);
 
-    QVBoxLayout* layout = new QVBoxLayout(this);
-    layout->addWidget(open);
-    setCentralWidget(open);
+
+    QPushButton *open = new QPushButton(tr("Apri tabella"),this);
+
+
+    //setLayout(layout);
+    //setCentralWidget(wdg);
+
+
+    //pieChart->setText("PieChart");
+    //layout->addWidget(pieChart);
+    //setCentralWidget(wdg);
 
     connect(open,SIGNAL(clicked(bool)),this,SLOT(showTable()));
-
 }
 
 MainWindow::~MainWindow()
@@ -24,6 +31,5 @@ void MainWindow::showTable()
 {
     window = new table;
     window->show();
-
 }
 

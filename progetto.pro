@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -29,11 +29,23 @@ SOURCES += \
     record.cpp \
     table.cpp \
     listacontroller.cpp \
-    piechartdataset.cpp
+    piechartdataset.cpp \
+    piechartview.cpp \
+    piechartcontrol.cpp \
+    barchartdataset.cpp \
+    barchartview.cpp \
+    barchartcontrol.cpp \
+    home.cpp
 
 HEADERS += \
         mainwindow.h \
     record.h \
     table.h \
     listacontroller.h \
-    piechartdataset.h
+    piechartdataset.h \
+    piechartview.h \
+    piechartcontrol.h \
+    barchartdataset.h \
+    barchartview.h \
+    barchartcontrol.h \
+    home.h

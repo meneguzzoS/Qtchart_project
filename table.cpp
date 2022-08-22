@@ -113,10 +113,10 @@ table::table()
         mainLayout->addWidget(tabella);
         mainLayout->addLayout(FieldLayout);
         mainLayout->addWidget(buttonBox);
+        setLayout(mainLayout);
 
         //qDebug() << tabella->currentRow();
 
-        setLayout(mainLayout);
         connect(quitButton,SIGNAL(clicked(bool)),this,SLOT(close()));
         connect(removeButton,SIGNAL(clicked(bool)),this,SLOT(deleteLastRow()));
         connect(submitButton,SIGNAL(clicked(bool)),this,SLOT(addRow()));

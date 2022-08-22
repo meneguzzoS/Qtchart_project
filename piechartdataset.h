@@ -3,7 +3,7 @@
 #include "record.h"
 
 struct AvgContinent {
-    MacroArea nomeContinente;
+    QString nomeContinente;
     double media;
 };
 
@@ -12,7 +12,8 @@ class pieChartDataset
 private:
     QList<AvgContinent> data;
 public:
-    pieChartDataset();
+    pieChartDataset(const QList<record>&);
+    QList<AvgContinent> getData() const;
 };
 
 #endif // PIECHARTDATASET_H
