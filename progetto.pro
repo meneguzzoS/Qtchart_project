@@ -35,7 +35,10 @@ SOURCES += \
     barchartdataset.cpp \
     barchartview.cpp \
     barchartcontrol.cpp \
-    home.cpp
+    home.cpp \
+    linechartdataset.cpp \
+    linechartview.cpp \
+    linechartcontrol.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -48,4 +51,7 @@ HEADERS += \
     barchartdataset.h \
     barchartview.h \
     barchartcontrol.h \
-    home.h
+    home.h \
+    linechartdataset.h \
+    linechartview.h \
+    linechartcontrol.h

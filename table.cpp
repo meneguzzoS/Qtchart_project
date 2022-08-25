@@ -16,13 +16,13 @@ table::table()
         dataController = new listaController(&lista);
 
         //creazione record
-        record b("stato1", QDate(2010,11,11), 8000, Europa);
+        /*record b("stato1", QDate(2010,11,11), 8000, Europa);
         record c("stato2", QDate(2011,8,21), 90000, Africa);
         record d("stato3", QDate(2009,3,2), 14000000, Oceania);
 
         dataController->addToList(b);
         dataController->addToList(c);
-        dataController->addToList(d);
+        dataController->addToList(d);*/
 
         //creazione tabella
         tabella = new QTableWidget;

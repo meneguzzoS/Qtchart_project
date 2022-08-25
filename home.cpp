@@ -2,20 +2,24 @@
 #include <QVBoxLayout>
 #include <QDebug>
 
-home::home()
+home::home(QList<record>* l = nullptr, QList<int>* y = nullptr) :list(new listaController(l)), year(y)
 {
     QVBoxLayout* layout = new QVBoxLayout;
     QPushButton* open = new QPushButton(tr("Apri tabella"));
     QPushButton* pieChart = new QPushButton(tr("Pie Chart"));
     QPushButton* barChart = new QPushButton((tr("Bar Chart")));
+    QPushButton* lineChart = new QPushButton(tr("Line Chart"));
     layout->addWidget(open);
     layout->addWidget(pieChart);
     layout->addWidget(barChart);
+    layout->addWidget(lineChart);
     setLayout(layout);
+    setMinimumSize(600,500);
 
     connect(open, SIGNAL(clicked(bool)),this, SLOT(showTable()));
     connect(pieChart,SIGNAL(clicked(bool)),this,SLOT(pieChart()));
     connect(barChart,SIGNAL(clicked(bool)),this,SLOT(barChart()));
+    connect(lineChart,SIGNAL(clicked(bool)),this,SLOT(lineChart()));
 }
 
 void home::showTable()
@@ -26,19 +30,7 @@ void home::showTable()
 
 void home::pieChart()
 {
-    record b("italia", QDate(2008,1,3), 3000, Europa);
-    record c("francia", QDate(2008,2,1), 4000, Europa);
-    record d("congo", QDate(2008,4,1), 2000, Africa);
-    record e("zimbawe", QDate(2008,6,8), 1500, Asia);
-    QList<record> lista;
-    lista.push_back(b);
-    lista.push_back(c);
-    lista.push_back(d);
-    lista.push_back(e);
-
-    pieChartDataset* nuovo = new pieChartDataset(lista);
-        /*for(int i=0; i<nuovo.getData().size(); i++)
-            qDebug() << nuovo.getData().at(i).nomeContinente << nuovo.getData().at(i).media;*/
+    pieChartDataset* nuovo = new pieChartDataset(*list);
     pieChartView* view = new pieChartView;
     pieChartControl ctr(nuovo, view);
     view->show();
@@ -46,18 +38,16 @@ void home::pieChart()
 
 void home::barChart()
 {
-    record b("italia", QDate(2008,1,3), 3000, Europa);
-    record c("francia", QDate(2008,2,1), 4000, Europa);
-    record d("congo", QDate(2008,4,1), 2000, Africa);
-    record e("zimbawe", QDate(2008,6,8), 1500, Asia);
-    QList<record> lista;
-    lista.push_back(b);
-    lista.push_back(c);
-    lista.push_back(d);
-    lista.push_back(e);
-
-    barChartDataset* nuovo = new barChartDataset(lista, 2008);
+    barChartDataset* nuovo = new barChartDataset(*list,year->at(0));
     barChartView* view = new barChartView;
     barChartControl ctr(nuovo, view);
     view->show();
+}
+
+void home::lineChart()
+{
+    lineChartDataset* t = new lineChartDataset(*list,*year);
+    lineChartView* z = new lineChartView;
+    lineChartControl o(t,z);
+    z->show();
 }

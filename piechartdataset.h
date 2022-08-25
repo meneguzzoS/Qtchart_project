@@ -1,6 +1,7 @@
 #ifndef PIECHARTDATASET_H
 #define PIECHARTDATASET_H
 #include "record.h"
+#include "listacontroller.h"
 
 struct AvgContinent {
     QString nomeContinente;
@@ -12,7 +13,7 @@ class pieChartDataset
 private:
     QList<AvgContinent> data;
 public:
-    pieChartDataset(const QList<record>&);
+    pieChartDataset(const listaController&);
     QList<AvgContinent> getData() const;
 };
 

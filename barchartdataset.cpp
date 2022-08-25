@@ -1,8 +1,8 @@
 #include "barchartdataset.h"
 
-barChartDataset::barChartDataset(const QList<record>& l, int i)
+barChartDataset::barChartDataset(const listaController& l, int i)
 {
-    for(QList<record>::const_iterator cit = l.begin(); cit != l.end(); cit++){
+    for(QList<record>::const_iterator cit = l.getList()->begin(); cit != l.getList()->end(); cit++){
         if((*cit).getData().year() == i) {
             state aux;
             aux.nomeStato = (*cit).getName();

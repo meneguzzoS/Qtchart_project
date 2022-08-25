@@ -8,9 +8,11 @@ class listaController
 {
 public:
     listaController(QList<record>*);
-    void addToList(record);
+    void addToList(const record&);
     void removeFromList();
-
+    QList<QString> getNomiStati() const;
+    int listaSize() const;
+    QList<record>* getList() const;
 private:
     QList<record> *addressLista;
 };
