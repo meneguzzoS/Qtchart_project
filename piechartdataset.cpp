@@ -1,12 +1,12 @@
 #include "piechartdataset.h"
 
-pieChartDataset::pieChartDataset(const listaController& lista)
+pieChartDataset::pieChartDataset(const listaController& lista, int i)
 {
     for(int cont = 0; cont<5 ; cont++) {
         int x=0;
         int n=0;
         for(QList<record>::const_iterator cit = lista.getList()->begin(); cit != lista.getList()->end(); ++cit) {
-            if((*cit).getContinente() == cont) {
+            if((*cit).getContinente() == cont && (*cit).getData().year() == i) {
                 x+=(*cit).getPIL();
                 n++;
             }

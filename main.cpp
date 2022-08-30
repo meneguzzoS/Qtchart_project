@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    //w.show();
+    w.show();
 
     QList<record> *p = new QList<record>;
 
@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     q.push_back(e);
 
     home h(p,&q);
-    h.show();
+    //h.show();
 
     return a.exec();
 }

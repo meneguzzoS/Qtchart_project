@@ -2,18 +2,19 @@
 #define PIECHARTDATASET_H
 #include "record.h"
 #include "listacontroller.h"
+#include "model.h"
 
 struct AvgContinent {
     QString nomeContinente;
     double media;
 };
 
-class pieChartDataset
+class pieChartDataset : public model
 {
 private:
     QList<AvgContinent> data;
 public:
-    pieChartDataset(const listaController&);
+    pieChartDataset(const listaController&,int);
     QList<AvgContinent> getData() const;
 };
 

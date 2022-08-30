@@ -24,13 +24,13 @@ home::home(QList<record>* l = nullptr, QList<int>* y = nullptr) :list(new listaC
 
 void home::showTable()
 {
-    window = new table;
-    window->show();
+//    window = new table;
+//    window->show();
 }
 
 void home::pieChart()
 {
-    pieChartDataset* nuovo = new pieChartDataset(*list);
+    pieChartDataset* nuovo = new pieChartDataset(*list,year->at(0));
     pieChartView* view = new pieChartView;
     pieChartControl ctr(nuovo, view);
     view->show();

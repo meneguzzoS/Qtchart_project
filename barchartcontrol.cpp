@@ -4,4 +4,5 @@ barChartControl::barChartControl(barChartDataset *d, barChartView *v) : dati(d),
 {
     for(const auto& l : d->getData())
         v->insertBar(l);
+    v->setAxis(*d);
 }

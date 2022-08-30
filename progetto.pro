@@ -38,7 +38,9 @@ SOURCES += \
     home.cpp \
     linechartdataset.cpp \
     linechartview.cpp \
-    linechartcontrol.cpp
+    linechartcontrol.cpp \
+    newchart.cpp \
+    model.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -54,4 +56,6 @@ HEADERS += \
     home.h \
     linechartdataset.h \
     linechartview.h \
-    linechartcontrol.h
+    linechartcontrol.h \
+    newchart.h \
+    model.h

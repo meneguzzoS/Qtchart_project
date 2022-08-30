@@ -2,6 +2,7 @@
 #define LINECHARTDATASET_H
 #include "record.h"
 #include "listacontroller.h"
+#include "model.h"
 
 struct stateData {
     QString nome;
@@ -9,7 +10,7 @@ struct stateData {
     QList<int> years;
 };
 
-class lineChartDataset
+class lineChartDataset : public model
 {
 private:
     QList<stateData> data; //oppure QList<stateData*> data;

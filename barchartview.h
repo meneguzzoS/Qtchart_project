@@ -15,10 +15,12 @@ class barChartView : public QWidget
 {
     Q_OBJECT
 private:
+    QChart* chart;
     QBarSeries *series;
 public:
     barChartView();
     void insertBar(const state&);
+    void setAxis(const barChartDataset&);
 };
 
 #endif // BARCHARTVIEW_H

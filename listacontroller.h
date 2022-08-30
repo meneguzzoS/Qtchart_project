@@ -9,7 +9,7 @@ class listaController
 public:
     listaController(QList<record>*);
     void addToList(const record&);
-    void removeFromList();
+    void removeFromList(int);
     QList<QString> getNomiStati() const;
     int listaSize() const;
     QList<record>* getList() const;

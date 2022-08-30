@@ -1,7 +1,7 @@
 #include "listacontroller.h"
 #include <QDebug>
 
-listaController::listaController(QList<record> *lista = nullptr) : addressLista(lista)
+listaController::listaController(QList<record> *lista = 0) : addressLista(lista)
 {
     record b("italia", QDate(2008,1,3), 3000, Europa);
     record c("francia", QDate(2008,2,1), 4000, Europa);
@@ -43,9 +43,9 @@ void listaController::addToList(const record& newRecord)
     addressLista->push_back(newRecord);
 }
 
-void listaController::removeFromList()
+void listaController::removeFromList(int i)
 {
-    addressLista->pop_back();
+    addressLista->removeAt(i);
 }
 
 QList<QString> listaController::getNomiStati() const

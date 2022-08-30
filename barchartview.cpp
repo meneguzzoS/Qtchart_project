@@ -4,7 +4,7 @@
 
 barChartView::barChartView()
 {
-    QChart* chart = new QChart;
+    chart = new QChart;
     series = new QBarSeries;
     chart->addSeries(series);
     chart->setTitle("PIL Stati");
@@ -16,17 +16,17 @@ barChartView::barChartView()
     QChartView* chartView = new QChartView(chart,this);
     chartView->setRenderHint(QPainter::Antialiasing);
 
-    QStringList categories;
-    categories << "2008";
-    QBarCategoryAxis *axisX = new QBarCategoryAxis();
-    axisX->append(categories);
-    chart->addAxis(axisX, Qt::AlignBottom);
-    series->attachAxis(axisX);
+//    QStringList categories;
+//    categories << "2008";
+//    QBarCategoryAxis *axisX = new QBarCategoryAxis();
+//    axisX->append(categories);
+//    chart->addAxis(axisX, Qt::AlignBottom);
+//    series->attachAxis(axisX);
 
-    QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0,5000);
-    chart->addAxis(axisY, Qt::AlignLeft);
-    series->attachAxis(axisY);
+//    QValueAxis *axisY = new QValueAxis();
+//    axisY->setRange(0,5000);
+//    chart->addAxis(axisY, Qt::AlignLeft);
+//    series->attachAxis(axisY);
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->addWidget(chartView);
@@ -39,5 +39,20 @@ void barChartView::insertBar(const state& s)
     QBarSet* set = new QBarSet(s.nomeStato);
     *set << s.pil;
     series->append(set);
+}
 
+void barChartView::setAxis(const barChartDataset& d)
+{
+    QStringList categories;
+    categories << QString::number(d.getYear());
+    QBarCategoryAxis *axisX = new QBarCategoryAxis();
+    axisX->append(categories);
+    chart->addAxis(axisX, Qt::AlignBottom);
+    series->attachAxis(axisX);
+
+    QValueAxis *axisY = new QValueAxis();
+    axisY->setRange(0,d.getMax()+500);
+    chart->addAxis(axisY, Qt::AlignLeft);
+    series->attachAxis(axisY);
+    series->setLabelsVisible();
 }
