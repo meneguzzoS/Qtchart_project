@@ -67,7 +67,7 @@ table::table(listaController* LC) : dataController(LC)
         data->setDisplayFormat("dd.MM.yyyy");
         PIL = new QDoubleSpinBox();
         QLabel *PILLabel = new QLabel("PIL: ");
-        PIL->setRange(0, 1000000000000000);
+        PIL->setRange(0, 1000000);
         continente = new QComboBox();
         QLabel *ContinenteLabel = new QLabel("Continente: ");
         continente->insertItem(1,"Europa");
@@ -169,16 +169,15 @@ void table::importData()
         return;
     }
 
-    QTextStream in(&targetFile);
-    record nuovo;
+    QTextStream in(&targetFile);  
 
-    int row;
     while(!in.atEnd()) {
         QString line = in.readLine(); // \n
         line = line.simplified();
         line.replace(" ",""); //rimuove gli spazi bianchi
         QStringList data = line.split(',');
 
+        int row;
         row = tabella->rowCount();
         tabella->insertRow(row);
         tabella->setItem(row, 0, new QTableWidgetItem(data.at(0)));
@@ -188,6 +187,7 @@ void table::importData()
         tabella->setCurrentCell(row,3);
 
         //inserisco elementi appena presi dal file nella lista
+        record nuovo;
         nuovo.setName(data.at(0));
         nuovo.setPIL(QString(data.at(1)).toInt());
         nuovo.setData(QDate::fromString(QString(data.at(2)), "dd.MM.yyyy"));

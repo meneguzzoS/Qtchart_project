@@ -4,15 +4,15 @@ barChartDataset::barChartDataset(const listaController& l, int i) : year(i)
 {
     for(QList<record>::const_iterator cit = l.getList()->begin(); cit != l.getList()->end(); cit++){
         if((*cit).getData().year() == i) {
-            state aux;
-            aux.nomeStato = (*cit).getName();
-            aux.pil = (*cit).getPIL();
+            state* aux = new state;
+            aux->nome = (*cit).getName();
+            aux->pil = (*cit).getPIL();
             data.push_back(aux);
         }
     }
 }
 
-QList<state> barChartDataset::getData() const
+QList<ChartData*> barChartDataset::getData() const
 {
     return data;
 }
@@ -26,8 +26,9 @@ double barChartDataset::getMax() const
 {
     int i = 0;
     for(const auto& a : data) {
-        if(a.pil > i)
-            i = a.pil;
+        state* p = dynamic_cast<state*>(a);
+        if(p && p->pil > i)
+            i = p->pil;
     }
     return i;
 }
@@ -36,8 +37,9 @@ double barChartDataset::getMin() const
 {
     int i = INT_MAX;
     for(const auto& a : data) {
-        if(a.pil < i)
-            i = a.pil;
+        state* p = dynamic_cast<state*>(a);
+        if(p && p->pil < i)
+            i = p->pil;
     }
     return i;
 }

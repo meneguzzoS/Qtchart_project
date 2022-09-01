@@ -4,8 +4,8 @@
 #include "listacontroller.h"
 #include "model.h"
 
-struct stateData {
-    QString nome;
+struct stateData : public ChartData {
+//    QString nome;
     QList<double> values;
     QList<int> years;
 };
@@ -13,10 +13,12 @@ struct stateData {
 class lineChartDataset : public model
 {
 private:
-    QList<stateData> data; //oppure QList<stateData*> data;
+    QList<ChartData*> data; //oppure QList<stateData*> data;
 public:
     lineChartDataset(const listaController&,const QList<int>&); //o anche QList<QData.year()>
-    QList<stateData> getData() const;
+    QList<ChartData*> getData() const override;
+    double getMax() const override;
+    double getMin() const override;
 };
 
 #endif // LINECHARTDATASET_H

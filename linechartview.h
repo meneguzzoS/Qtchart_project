@@ -6,18 +6,20 @@
 #include <QtCharts/QLineSeries>
 #include "linechartdataset.h"
 #include "QValueAxis"
+#include "view.h"
 
 QT_CHARTS_USE_NAMESPACE
 
-class lineChartView : public QWidget
+class lineChartView : public view
 {
 Q_OBJECT
 private:
-    //QLineSeries *series;
     QChart *chart;
+    QLineSeries *series;
 public:
     lineChartView();
-    void insertData(const stateData&);
+    void insertData(ChartData*);
+    void setDesign(model*);
 };
 
 #endif // LINECHARTVIEW_H

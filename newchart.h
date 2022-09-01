@@ -5,14 +5,12 @@
 #include <QPushButton>
 #include <QSpinBox>
 
-#include "piechartcontrol.h"
+#include "view.h"
 #include "piechartdataset.h"
 #include "piechartview.h"
-#include "barchartcontrol.h"
 #include "barchartdataset.h"
 #include "barchartview.h"
 #include "listacontroller.h"
-#include "linechartcontrol.h"
 #include "linechartdataset.h"
 #include "linechartview.h"
 

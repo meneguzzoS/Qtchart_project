@@ -31,16 +31,15 @@ SOURCES += \
     listacontroller.cpp \
     piechartdataset.cpp \
     piechartview.cpp \
-    piechartcontrol.cpp \
     barchartdataset.cpp \
     barchartview.cpp \
-    barchartcontrol.cpp \
-    home.cpp \
     linechartdataset.cpp \
     linechartview.cpp \
-    linechartcontrol.cpp \
     newchart.cpp \
-    model.cpp
+    model.cpp \
+    filehandler.cpp \
+    view.cpp \
+    chartcontroller.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -49,13 +48,12 @@ HEADERS += \
     listacontroller.h \
     piechartdataset.h \
     piechartview.h \
-    piechartcontrol.h \
     barchartdataset.h \
     barchartview.h \
-    barchartcontrol.h \
-    home.h \
     linechartdataset.h \
     linechartview.h \
-    linechartcontrol.h \
     newchart.h \
-    model.h
+    model.h \
+    filehandler.h \
+    view.h \
+    chartcontroller.h

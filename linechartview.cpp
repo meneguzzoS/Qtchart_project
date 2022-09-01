@@ -2,6 +2,8 @@
 #include "QChart"
 #include "QVBoxLayout"
 #include <qdebug.h>
+#include <QXYSeries>
+
 
 lineChartView::lineChartView()
 {
@@ -46,16 +48,32 @@ lineChartView::lineChartView()
     setMinimumSize(800,500);
 }
 
-void lineChartView::insertData(const stateData& d)
+void lineChartView::insertData(ChartData* d)
 {
-    QLineSeries *series = new QLineSeries;
-    series->setName(d.nome);
+    stateData* p = dynamic_cast<stateData*>(d);
+    if(p) {
+        series = new QLineSeries;
+        series->setName(d->nome);
 
-    for(int i=0; i<d.values.size(); i++) { //values da controllare
-        series->append(d.years.at(i) , d.values.at(i));
-        //*series << QPointF(d.years.at(i),d.values.at(i));
-        qDebug() << i << d.years.at(i) << d.values.at(i);
+        for(int i=0; i<p->values.size(); i++) { //values da controllare
+            series->append(p->years.at(i) , p->values.at(i));
+            qDebug() << i << p->years.at(i) << p->values.at(i);
+            //series->setPointLabelsFormat(QString::number(d.values.at(i)));
+        }
+        chart->addSeries(series);
+
+        //series->setPointLabelsVisible();
+        series->setPointsVisible();
     }
-    chart->addSeries(series);
+
+}
+
+void lineChartView::setDesign(model* d)
+{
     chart->createDefaultAxes();
+
+    chart->axisX()->setLabelsVisible();
+    chart->axisX()->setTitleText("Anni di riferimento");
+    chart->axisY()->setTitleText("PIL Stati (in mln)");
+    chart->axisY()->setRange(d->getMin()-1000,d->getMax()+1000);
 }

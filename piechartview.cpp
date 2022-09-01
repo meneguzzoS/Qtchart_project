@@ -1,15 +1,16 @@
 #include "piechartview.h"
+#include <QDebug>
 
 pieChartView::pieChartView()
 {
-    QChart* chart = new QChart;
+    chart = new QChart;
     series = new QPieSeries;
     chart->addSeries(series);
     chart->setTitle("PIL Continenti");
     chart->legend()->setVisible(true);
     chart->legend()->setAlignment(Qt::AlignBottom);
     chart->setTheme(QChart::ChartThemeDark);
-    chart->setAnimationOptions(QChart::AllAnimations);
+    //chart->setAnimationOptions(QChart::AllAnimations);
     chart->setAnimationDuration(1500);
     QChartView* chartView = new QChartView(chart,this);
     chartView->setRenderHint(QPainter::Antialiasing);
@@ -20,11 +21,24 @@ pieChartView::pieChartView()
     //resize(size);
 }
 
-void pieChartView::insertData(const AvgContinent& a)
+void pieChartView::insertData(ChartData* a)
 {
-    series->append(a.nomeContinente,a.media);
-    series->setLabelsVisible();
-    series->setLabelsPosition(QPieSlice::LabelInsideHorizontal);
-    for(auto slice : series->slices())
-        slice->setLabel(QString("%1%").arg(100*slice->percentage(), 0, 'f', 1)+(" ")+QString(a.nomeContinente));
+    AvgContinent* p = dynamic_cast<AvgContinent*>(a);
+    if(p) {
+        series->append(p->nome,p->media);
+        qDebug() << p->nome << p->media;
+    }
+
+}
+
+void pieChartView::setDesign(model* d)
+{
+    int i = 0;
+    for(QPieSlice* slice : series->slices()) {
+        slice->setLabel(QString("%1%").arg(100*slice->percentage(), 0, 'f', 1)+(" ")+QString(d->getData().at(i)->nome));
+        slice->setExploded();
+        slice->setLabelVisible();
+        slice->setLabelPosition(QPieSlice::LabelOutside);
+        i++;
+    }
 }

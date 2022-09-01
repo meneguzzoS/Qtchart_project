@@ -4,19 +4,19 @@
 #include "listacontroller.h"
 #include "model.h"
 
-struct state {
-    QString nomeStato;
+struct state : public ChartData {
+//    QString nomeStato;
     double pil;
 };
 
 class barChartDataset : public model
 {
 private:
-    QList<state> data;
+    QList<ChartData*> data;
     int year;
 public:
     barChartDataset(const listaController&, int);
-    QList<state> getData() const;
+    QList<ChartData*> getData() const;
     int getYear() const;
     double getMax() const;
     double getMin() const;

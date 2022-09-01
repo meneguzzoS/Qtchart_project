@@ -17,11 +17,43 @@ lineChartDataset::lineChartDataset(const listaController& l,const QList<int>& y)
         if(aux->values.isEmpty())
             delete aux;
         else
-            data.push_back(*aux);
+            data.push_back(aux);
     }
 }
 
-QList<stateData> lineChartDataset::getData() const
+QList<ChartData*> lineChartDataset::getData() const
 {
     return data;
+}
+
+double lineChartDataset::getMax() const
+{
+    int i = 0;
+    for(const auto& a : data) {
+        stateData* p = dynamic_cast<stateData*>(a);
+            if(p) {
+                for(const auto& v : p->values) {
+                    if(v > i)
+                        i = v;
+                }
+    }
+
+    }
+    return i;
+}
+
+double lineChartDataset::getMin() const
+{
+    int i = INT_MAX;
+    for(const auto& a : data) {
+        stateData* p = dynamic_cast<stateData*>(a);
+        if(p) {
+            for(const auto& v : p->values) {
+                if(v < i)
+                    i = v;
+            }
+        }
+
+    }
+    return i;
 }

@@ -1,7 +1,7 @@
 #ifndef BARCHARTVIEW_H
 #define BARCHARTVIEW_H
 #include "barchartdataset.h"
-#include <QWidget>
+#include "view.h"
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
 #include <QtCharts/QChartView>
@@ -11,16 +11,15 @@
 
 QT_CHARTS_USE_NAMESPACE
 
-class barChartView : public QWidget
+class barChartView : public view
 {
-    Q_OBJECT
 private:
-    QChart* chart;
+    //QChart* chart;
     QBarSeries *series;
 public:
     barChartView();
-    void insertBar(const state&);
-    void setAxis(const barChartDataset&);
+    void insertData(ChartData*) override;
+    void setDesign(model*) override;
 };
 
 #endif // BARCHARTVIEW_H

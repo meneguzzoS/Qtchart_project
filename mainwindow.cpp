@@ -11,24 +11,24 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent)
 {
     setGeometry(180,100,1300,800);
     setWindowTitle(tr("Tabella Dati"));
-    OpenAction=new QAction(QIcon(":/Images/open.png"),tr("Apri"),this);
-    OpenAction->setShortcuts(QKeySequence::Open);               //creo un accesso veloce
-    NewAction=new QAction(QIcon(":/Images/new.png"),tr("Nuovo"),this);
-    NewAction->setShortcuts(QKeySequence::New);                 //creo un accesso veloce
-    SaveAction=new QAction(QIcon(":/Images/save.png") ,tr("Salva"),this);
-    SaveAction->setShortcuts(QKeySequence::Save);               //creo un accesso veloce
+    OpenAction=new QAction(tr("Apri"),this);
+    OpenAction->setShortcuts(QKeySequence::Open);
+    NewAction=new QAction(tr("Nuovo"),this);
+    NewAction->setShortcuts(QKeySequence::New);
+    SaveAction=new QAction(tr("Salva"),this);
+    SaveAction->setShortcuts(QKeySequence::Save);
     SaveAsaction=new QAction(tr("Salva con nome"),this);
-    SaveAsaction->setShortcut(QKeySequence::SaveAs);          //creo un accesso veloce
-    CloseAction=new QAction(QIcon(":/Images/close.png"),tr("Chiudi"),this);
-    CloseAction->setShortcuts(QKeySequence::Close);             //creo un accesso veloce
+    SaveAsaction->setShortcut(QKeySequence::SaveAs);
+    CloseAction=new QAction(tr("Chiudi"),this);
+    CloseAction->setShortcuts(QKeySequence::Close);
     QuitAction=new QAction(tr("Esci"),this);
-    QuitAction->setShortcuts(QKeySequence::Quit);               //creo un accesso veloce
-    barchart=new QAction(QIcon(":/Images/barchart.jpeg"),tr("Barchart"),this);
-    linechart=new QAction(QIcon(":/Images/linechart.jpg"),tr("Linechart"),this);
-    pointchart=new QAction(QIcon(":/Images/pointchart.png"),tr("PointChart"),this);
-    aggiungi=new QAction(QIcon(":/Images/add.png"),tr("Aggiungi"),this);
-    remove=new QAction(QIcon(":/Images/remove.png"),tr("Rimuovi"),this);
-    inserimento=new QAction(QIcon(":/Images/Ok.png"),tr("Inserisci"),this);
+    QuitAction->setShortcuts(QKeySequence::Quit);
+    barchart=new QAction(tr("Barchart"),this);
+    linechart=new QAction(tr("Linechart"),this);
+    pointchart=new QAction(tr("PointChart"),this);
+    aggiungi=new QAction(tr("Aggiungi"),this);
+    remove=new QAction(tr("Rimuovi"),this);
+    inserimento=new QAction(tr("Inserisci"),this);
     FileMenu =new QMenu(tr("File"),this);
     FileMenu->addAction(OpenAction);
     FileMenu->addAction(NewAction);
@@ -49,19 +49,6 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent)
     menuBar()->addMenu(ModificaMenu);
     menuBar()->addSeparator();
     statusBar();//creo una status bar
-    File=addToolBar(tr("File"));
-    File->addAction(OpenAction);
-    File->addAction(NewAction);
-    File->addAction(SaveAction);
-    File->addAction(CloseAction);
-    Chart=addToolBar(tr("Chart"));
-    Chart->addAction(barchart);
-    Chart->addAction(linechart);
-    Chart->addAction(pointchart);
-    Modifica=addToolBar(tr("Modifica"));
-    Modifica->addAction(aggiungi);
-    Modifica->addAction(remove);
-    Modifica->addAction(inserimento);
     aggiungi->setEnabled(false);
     remove->setEnabled(false);
     inserimento->setEnabled(false);
@@ -74,6 +61,8 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent)
     setCentralWidget(t);
 
     connect(t,SIGNAL(closeWindow()),this,SLOT(close()));
+    connect(CloseAction,SIGNAL(triggered(bool)),this,SLOT(close()));
+    connect(OpenAction,SIGNAL(triggered(bool)),t,SLOT(importData()));
 
 //    tab=new Tab(&val,this);
 //    setCentralWidget(tab);

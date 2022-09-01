@@ -9,17 +9,20 @@
 #include <QtCharts/QPieSeries>
 #include <QtCharts/QPieSlice>
 #include <QHBoxLayout>
+#include "view.h"
 
 QT_CHARTS_USE_NAMESPACE
-class pieChartView: public QWidget
+class pieChartView: public view
 {
     Q_OBJECT
 private:
     //pieChartDataset *dati;
+    QChart* chart;
     QPieSeries* series;
 public:
     pieChartView();
-    void insertData(const AvgContinent&);
+    void insertData(ChartData*);
+    void setDesign(model*);
 };
 
 #endif // PIECHARTVIEW_H

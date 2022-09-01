@@ -4,8 +4,9 @@
 #include <QDebug>
 #include <iostream>
 #include "table.h"
-#include "home.h"
 #include "listacontroller.h"
+#include "barchartview.h"
+#include "barchartdataset.h"
 
 int main(int argc, char *argv[])
 {
@@ -21,9 +22,7 @@ int main(int argc, char *argv[])
     q.push_back(c);
     q.push_back(d);
     q.push_back(e);
-
-    home h(p,&q);
-    //h.show();
+    listaController *lista= new listaController(p);
 
     return a.exec();
 }

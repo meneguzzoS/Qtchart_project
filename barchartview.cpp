@@ -1,6 +1,7 @@
 #include "barchartview.h"
 #include <QBarCategoryAxis>
 #include <QValueAxis>
+#include "QDebug"
 
 barChartView::barChartView()
 {
@@ -16,43 +17,45 @@ barChartView::barChartView()
     QChartView* chartView = new QChartView(chart,this);
     chartView->setRenderHint(QPainter::Antialiasing);
 
-//    QStringList categories;
-//    categories << "2008";
-//    QBarCategoryAxis *axisX = new QBarCategoryAxis();
-//    axisX->append(categories);
-//    chart->addAxis(axisX, Qt::AlignBottom);
-//    series->attachAxis(axisX);
-
-//    QValueAxis *axisY = new QValueAxis();
-//    axisY->setRange(0,5000);
-//    chart->addAxis(axisY, Qt::AlignLeft);
-//    series->attachAxis(axisY);
-
     QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->addWidget(chartView);
     setLayout(mainLayout);
     setMinimumSize(800,500);
 }
 
-void barChartView::insertBar(const state& s)
+void barChartView::insertData(ChartData* s)
 {
-    QBarSet* set = new QBarSet(s.nomeStato);
-    *set << s.pil;
-    series->append(set);
+    state* p = dynamic_cast<state*>(s);
+    if(p) {
+        QBarSet* set = new QBarSet(p->nome);
+        *set << p->pil;
+        series->append(set);
+    }
+
 }
 
-void barChartView::setAxis(const barChartDataset& d)
+void barChartView::setDesign(model* d)
 {
     QStringList categories;
-    categories << QString::number(d.getYear());
+    categories << QString::number(d->getYear());
     QBarCategoryAxis *axisX = new QBarCategoryAxis();
     axisX->append(categories);
     chart->addAxis(axisX, Qt::AlignBottom);
     series->attachAxis(axisX);
 
     QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0,d.getMax()+500);
+    axisY->setRange(0,d->getMax()+5000);
+    qDebug() << d->getMin() << d->getMax();
+    for(auto& a : d->getData()) {
+        state* p = dynamic_cast<state*>(a);
+        if(p)
+        qDebug() << p->nome << p->pil;
+    }
+
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
     series->setLabelsVisible();
+    series->setLabelsPosition(QAbstractBarSeries::LabelsOutsideEnd);
+    axisX->setTitleText("Anno di riferimento");
+    axisY->setTitleText("PIL Stato (in mln)");
 }

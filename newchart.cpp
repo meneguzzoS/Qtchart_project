@@ -5,6 +5,7 @@
 #include <QGroupBox>
 #include <QMessageBox>
 #include "QDebug"
+#include "chartcontroller.h"
 
 newChart::newChart(listaController* LC) : list(LC)
 {
@@ -85,30 +86,26 @@ void newChart::barChecked()
 
 void newChart::createChart()
 {
-//    QList<record> *q = new QList<record>;
-//    list = new listaController(q);
     int b=2007,c=2008, d=2009, e=2010;
     year = new QList<int>;
     year->push_back(b);
     year->push_back(c);
     year->push_back(d);
     year->push_back(e);
+    model* nuovo;
+    view* vista;
     if(linechart->isChecked()) {
-        lineChartDataset* t = new lineChartDataset(*list,*year);
-        lineChartView* z = new lineChartView;
-        lineChartControl o(t,z);
-        z->show();
+        nuovo = new lineChartDataset(*list,*year);
+        vista = new lineChartView;
     }
     if(piechart->isChecked()) {
-        pieChartDataset* nuovo = new pieChartDataset(*list,year->at(0));
-        pieChartView* view = new pieChartView;
-        pieChartControl ctr(nuovo, view);
-        view->show();
+        nuovo = new pieChartDataset(*list,year->at(0));
+        vista = new pieChartView;
     }
     if(barchart->isChecked()) {
-        barChartDataset* nuovo = new barChartDataset(*list,year->at(0));
-        barChartView* view = new barChartView;
-        barChartControl ctr(nuovo, view);
-        view->show();
+        nuovo = new barChartDataset(*list,year->at(0));
+        vista = new barChartView;
     }
+    ChartController ctr(nuovo, vista);
+    vista->show();
 }
