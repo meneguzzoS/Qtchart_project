@@ -13,6 +13,7 @@ public:
     QList<QString> getNomiStati() const;
     int listaSize() const;
     QList<record>* getList() const;
+    bool isListaEmpty() const;
 private:
     QList<record> *addressLista;
 };

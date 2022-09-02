@@ -73,3 +73,8 @@ QList<record>* listaController::getList() const
 {
     return addressLista;
 }
+
+bool listaController::isListaEmpty() const
+{
+    return addressLista->isEmpty();
+}

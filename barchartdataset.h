@@ -5,7 +5,6 @@
 #include "model.h"
 
 struct state : public ChartData {
-//    QString nomeStato;
     double pil;
 };
 

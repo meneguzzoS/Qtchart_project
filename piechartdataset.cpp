@@ -1,4 +1,5 @@
 #include "piechartdataset.h"
+#include "QDebug"
 
 pieChartDataset::pieChartDataset(const listaController& lista, int i) : year(i)
 {
@@ -9,6 +10,7 @@ pieChartDataset::pieChartDataset(const listaController& lista, int i) : year(i)
             if((*cit).getContinente() == cont && (*cit).getData().year() == i) {
                 x+=(*cit).getPIL();
                 n++;
+                qDebug() << "cit" << cont <<(*cit).getName() << x << n;
             }
         }
         if(cont==0 && n>0) {

@@ -10,8 +10,9 @@ struct ChartData {
 
 class model
 {
-//protected:
-//    QList<ChartData*> *data;
+protected:
+    //struct ChartData;
+    //QList<ChartData*> data;
 public:
     model();
     virtual QList<ChartData*> getData() const =0;

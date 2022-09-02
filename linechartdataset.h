@@ -5,7 +5,6 @@
 #include "model.h"
 
 struct stateData : public ChartData {
-//    QString nome;
     QList<double> values;
     QList<int> years;
 };

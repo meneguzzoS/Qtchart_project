@@ -5,7 +5,6 @@
 #include "model.h"
 
 struct AvgContinent : public ChartData {
-//    QString nomeContinente;
     double media;
 };
 
@@ -18,7 +17,6 @@ public:
     pieChartDataset(const listaController&,int);
     QList<ChartData*> getData() const override;
     int getYear() const override;
-
 };
 
 #endif // PIECHARTDATASET_H
