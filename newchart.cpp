@@ -1,6 +1,6 @@
 #include "newchart.h"
 
-newChart::newChart(listaController* LC) : list(LC)
+newChart::newChart(listaDati* LC) : list(LC)
 {
     setWindowTitle("Crea un nuovo grafico");
         resize(500,200);

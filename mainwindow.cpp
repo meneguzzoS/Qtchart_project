@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent)
     linechart->setEnabled(false);
     pointchart->setEnabled(false);
     QList<record> *p= new QList<record>;
-    dataController = new listaController(p);
+    dataController = new listaDati(p);
     table* t = new table(dataController);
     setCentralWidget(t);
 

@@ -24,11 +24,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+    listacontroller.cpp \
+    listadati.cpp \
         main.cpp \
         mainwindow.cpp \
     record.cpp \
     table.cpp \
-    listacontroller.cpp \
     piechartdataset.cpp \
     piechartview.cpp \
     barchartdataset.cpp \
@@ -42,10 +43,11 @@ SOURCES += \
     chartcontroller.cpp
 
 HEADERS += \
+    listacontroller.h \
+    listadati.h \
         mainwindow.h \
     record.h \
     table.h \
-    listacontroller.h \
     piechartdataset.h \
     piechartview.h \
     barchartdataset.h \

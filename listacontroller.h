@@ -1,29 +1,17 @@
 #ifndef LISTACONTROLLER_H
 #define LISTACONTROLLER_H
 
-#include "record.h"
-#include <QDebug>
+#include <QObject>
+#include "listadati.h"
+#include "table.h"
 
-class listaController
+class listacontroller
 {
 public:
-    listaController(QList<record>* lista = nullptr);
-    void addToList(const record&);
-    void removeFromList(int);
-    QList<QString> getNomiStati() const;
-    int listaSize() const;
-    QList<record>* getList() const;
-    bool isListaEmpty() const;
-    record getListData(int i) const;
-    QString getName(int) const;
-    QDate getData(int) const;
-    double getPIL(int) const;
-    MacroArea getContinente(int) const;
-    void InsertRecord(QString, QDate, double, int);
-    void fromTableToList(QStringList);
+    listacontroller();
 private:
-    QList<record> *addressLista;
-//    table* tabella;
+    listaDati* dati;
+    table* tabella;
 };
 
 #endif // LISTACONTROLLER_H

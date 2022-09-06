@@ -1,6 +1,6 @@
 #include "linechartdataset.h"
 
-lineChartDataset::lineChartDataset(const listaController& l,const QList<int>& y)
+lineChartDataset::lineChartDataset(const listaDati& l,const QList<int>& y)
 {
     stateData *aux;
     for(const auto& s : l.getNomiStati()) {

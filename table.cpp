@@ -1,6 +1,6 @@
 #include "table.h"
 
-table::table(listaController* LC) : dataController(LC)
+table::table(listaDati* LC) : dataController(LC)
 {
         setWindowTitle("Tabella prodotti");
 //        dataController = new listaController(&lista);
@@ -55,6 +55,7 @@ table::table(listaController* LC) : dataController(LC)
         PIL = new QDoubleSpinBox();
         QLabel *PILLabel = new QLabel("PIL: ");
         PIL->setRange(0, 1000000);
+        PIL->setSuffix("  mld €");
         continente = new QComboBox();
         QLabel *ContinenteLabel = new QLabel("Continente: ");
         continente->insertItem(1,"Europa");

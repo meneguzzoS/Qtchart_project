@@ -1,6 +1,6 @@
 #include "piechartdataset.h"
 
-pieChartDataset::pieChartDataset(const listaController& lista, int i) : year(i)
+pieChartDataset::pieChartDataset(const listaDati& lista, int i) : year(i)
 {
     for(int cont = 0; cont<5 ; cont++) {
         int x=0;

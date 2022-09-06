@@ -6,7 +6,7 @@
 #include "piechartview.h"
 #include "barchartview.h"
 #include "linechartview.h"
-#include "listacontroller.h"
+#include "listadati.h"
 
 class ChartController
 {

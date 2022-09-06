@@ -1,4 +1,5 @@
 #include "filehandler.h"
+#include "table.h"
 
 fileHandler::fileHandler(table* t) : tabella(t)
 {

@@ -10,7 +10,7 @@
 #include "piechartview.h"
 #include "barchartdataset.h"
 #include "barchartview.h"
-#include "listacontroller.h"
+#include "listadati.h"
 #include "linechartdataset.h"
 #include "linechartview.h"
 #include <QLabel>
@@ -25,9 +25,9 @@ class newChart : public QDialog
 {
 Q_OBJECT
 public:
-    newChart(listaController* LC = nullptr);
+    newChart(listaDati* LC = nullptr);
 private:
-    listaController *list;
+    listaDati *list;
     QList<int>* year;
      //int n;
      //QSpinBox* ndati;

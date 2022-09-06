@@ -13,7 +13,7 @@ private:
     QList<ChartData*> data;
     int year;
 public:
-    barChartDataset(const listaController&, int);
+    barChartDataset(const listaDati&, int);
     QList<ChartData*> getData() const;
     int getYear() const;
     double getMax() const;

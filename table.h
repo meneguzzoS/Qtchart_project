@@ -2,7 +2,7 @@
 #define TABLE_H
 
 #include "newchart.h"
-#include "listacontroller.h"
+#include "listadati.h"
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QLineEdit>
@@ -17,13 +17,11 @@
 #include <QDir>
 #include "filehandler.h"
 
-class fileHandler;
-
 class table : public QWidget
 {
     Q_OBJECT
 public:
-    table(listaController*);
+    table(listaDati*);
     QTableWidget* getTable();
 private:
     QTableWidget *tabella;
@@ -38,7 +36,7 @@ private:
     QDoubleSpinBox* PIL;
     QDateEdit* data;
     QComboBox* continente;
-    listaController *dataController;
+    listaDati *dataController;
     fileHandler* file;
 signals:
     void closeWindow();

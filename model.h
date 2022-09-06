@@ -2,7 +2,7 @@
 #define MODEL_H
 
 #include <QString>
-#include "listacontroller.h"
+#include "listadati.h"
 
 struct ChartData {
     QString nome;

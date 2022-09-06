@@ -1,6 +1,6 @@
 #include "barchartdataset.h"
 
-barChartDataset::barChartDataset(const listaController& l, int i) : year(i)
+barChartDataset::barChartDataset(const listaDati& l, int i) : year(i)
 {
     for(QList<record>::const_iterator cit = l.getList()->begin(); cit != l.getList()->end(); cit++){
         if((*cit).getData().year() == i) {

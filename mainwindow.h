@@ -42,7 +42,7 @@ private:
     QToolBar* File;
     QToolBar* Chart;
     QToolBar* Modifica;
-    listaController* dataController;
+    listaDati* dataController;
 public:
      MainWindow(QWidget *parent = 0);
 signals:
