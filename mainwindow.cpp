@@ -1,11 +1,4 @@
 #include "mainwindow.h"
-#include <QMenuBar>
-#include <QFileDialog>
-#include <QDir>
-#include <QStatusBar>
-#include <QMessageBox>
-#include <string>
-#include "table.h"
 
 MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent)
 {
@@ -62,8 +55,6 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent)
 
     connect(t,SIGNAL(closeWindow()),this,SLOT(close()));
     connect(CloseAction,SIGNAL(triggered(bool)),this,SLOT(close()));
-    connect(OpenAction,SIGNAL(triggered(bool)),t,SLOT(importData()));
-
-//    tab=new Tab(&val,this);
-//    setCentralWidget(tab);
+//    connect(OpenAction,SIGNAL(triggered(bool)),t,SLOT(importData()));
+//    connect(OpenAction,&QPushButton::clicked,this,[this](){emit openF();});
 }

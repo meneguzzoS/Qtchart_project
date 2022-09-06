@@ -1,5 +1,4 @@
 #include "record.h"
-#include <QDebug>
 
 record::record() {}
 

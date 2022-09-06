@@ -1,7 +1,6 @@
 #include "listacontroller.h"
-#include <QDebug>
 
-listaController::listaController(QList<record> *lista = 0) : addressLista(lista)
+listaController::listaController(QList<record> *lista) : addressLista(lista)
 {
     record b("italia", QDate(2008,1,3), 3000, Europa);
     record c("francia", QDate(2008,2,1), 4000, Europa);
@@ -77,4 +76,58 @@ QList<record>* listaController::getList() const
 bool listaController::isListaEmpty() const
 {
     return addressLista->isEmpty();
+}
+
+record listaController::getListData(int i) const
+{
+    return addressLista->at(i);
+}
+
+QString listaController::getName(int i) const
+{
+    return addressLista->at(i).getName();
+}
+
+QDate listaController::getData(int i) const
+{
+    return addressLista->at(i).getData();
+}
+
+double listaController::getPIL(int i) const
+{
+    return addressLista->at(i).getPIL();
+}
+
+MacroArea listaController::getContinente(int i) const
+{
+    return addressLista->at(i).getContinente();
+}
+
+void listaController::InsertRecord(QString nome, QDate data, double pil, int i)
+{
+    record nuovo;
+    nuovo.setName(nome);
+    nuovo.setData(data);
+    nuovo.setPIL(pil);
+    nuovo.setContinente(i);
+    addressLista->push_back(nuovo);
+}
+
+void listaController::fromTableToList(QStringList data)
+{
+    record nuovo;
+    nuovo.setName(data.at(0));
+    nuovo.setPIL(QString(data.at(1)).toInt());
+    nuovo.setData(QDate::fromString(QString(data.at(2)), "dd.MM.yyyy"));
+    if(data.at(3)=="Europa")
+        nuovo.setContinente(0);
+    if(data.at(3)=="Asia")
+        nuovo.setContinente(1);
+    if(data.at(3)=="America")
+        nuovo.setContinente(2);
+    if(data.at(3)=="Africa")
+        nuovo.setContinente(3);
+    if(data.at(3)=="Oceania")
+        nuovo.setContinente(4);
+    addressLista->push_back(nuovo);
 }

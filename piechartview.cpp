@@ -1,5 +1,4 @@
 #include "piechartview.h"
-#include <QDebug>
 
 pieChartView::pieChartView()
 {
@@ -31,14 +30,16 @@ void pieChartView::insertData(ChartData* a)
 
 }
 
-void pieChartView::setDesign(model* d)
+void pieChartView::setDesign(QString s)
 {
     int i = 0;
     for(QPieSlice* slice : series->slices()) {
-        slice->setLabel(QString("%1%").arg(100*slice->percentage(), 0, 'f', 1)+(" ")+QString(d->getData().at(i)->nome));
+//        slice->setLabel(QString("%1%").arg(100*slice->percentage(), 0, 'f', 1)+(" ")+QString(d->getData().at(i)->nome));
         slice->setExploded();
         slice->setLabelVisible();
         slice->setLabelPosition(QPieSlice::LabelOutside);
         i++;
     }
+    QValueAxis* axisX = new QValueAxis;
+    axisX->setLabelFormat("%d");
 }

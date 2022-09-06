@@ -3,6 +3,10 @@
 
 #include "model.h"
 #include "view.h"
+#include "piechartview.h"
+#include "barchartview.h"
+#include "linechartview.h"
+#include "listacontroller.h"
 
 class ChartController
 {

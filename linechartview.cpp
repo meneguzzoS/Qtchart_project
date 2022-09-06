@@ -1,8 +1,4 @@
 #include "linechartview.h"
-#include "QChart"
-#include "QVBoxLayout"
-#include <qdebug.h>
-#include <QXYSeries>
 
 
 lineChartView::lineChartView()
@@ -68,12 +64,12 @@ void lineChartView::insertData(ChartData* d)
 
 }
 
-void lineChartView::setDesign(model* d)
+void lineChartView::setDesign(double min, double max)
 {
     chart->createDefaultAxes();
 
     chart->axisX()->setLabelsVisible();
     chart->axisX()->setTitleText("Anni di riferimento");
     chart->axisY()->setTitleText("PIL Stati (in mln)");
-    chart->axisY()->setRange(d->getMin()-1000,d->getMax()+1000);
+    chart->axisY()->setRange(min-1000,max+1000);
 }

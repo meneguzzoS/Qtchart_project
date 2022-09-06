@@ -1,13 +1,12 @@
 #ifndef BARCHARTDATASET_H
 #define BARCHARTDATASET_H
 #include "record.h"
-#include "listacontroller.h"
 #include "model.h"
 
 struct state : public ChartData {
     double pil;
 };
-
+//class listaController;
 class barChartDataset : public model
 {
 private:

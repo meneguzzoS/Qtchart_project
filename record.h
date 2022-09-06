@@ -1,7 +1,10 @@
 #ifndef RECORD_H
 #define RECORD_H
+
 #include<QString>
 #include<QDate>
+#include <QDebug>
+
 
 enum MacroArea {Europa, Asia, America, Africa, Oceania};
 

@@ -1,12 +1,16 @@
 #ifndef LINECHARTVIEW_H
 #define LINECHARTVIEW_H
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QMainWindow>
-#include <QtCharts/QChartView>
+//#include <QtWidgets/QApplication>
+//#include <QtWidgets/QMainWindow>
+//#include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
 #include "linechartdataset.h"
 #include "QValueAxis"
 #include "view.h"
+#include "QChart"
+#include "QVBoxLayout"
+#include <QDebug>
+#include <QXYSeries>
 
 QT_CHARTS_USE_NAMESPACE
 
@@ -19,7 +23,7 @@ private:
 public:
     lineChartView();
     void insertData(ChartData*);
-    void setDesign(model*);
+    void setDesign(double,double);
 };
 
 #endif // LINECHARTVIEW_H

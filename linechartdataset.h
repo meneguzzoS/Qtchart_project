@@ -1,7 +1,6 @@
 #ifndef LINECHARTDATASET_H
 #define LINECHARTDATASET_H
 #include "record.h"
-#include "listacontroller.h"
 #include "model.h"
 
 struct stateData : public ChartData {
@@ -9,10 +8,11 @@ struct stateData : public ChartData {
     QList<int> years;
 };
 
+//class listaController;
 class lineChartDataset : public model
 {
 private:
-    QList<ChartData*> data; //oppure QList<stateData*> data;
+    QList<ChartData*> data;
 public:
     lineChartDataset(const listaController&,const QList<int>&); //o anche QList<QData.year()>
     QList<ChartData*> getData() const override;

@@ -1,12 +1,12 @@
 #include "mainwindow.h"
 #include <QApplication>
-#include "record.h"
-#include <QDebug>
-#include <iostream>
-#include "table.h"
+//#include "record.h"
+//#include <QDebug>
+//#include <iostream>
+//#include "table.h"
 #include "listacontroller.h"
-#include "barchartview.h"
-#include "barchartdataset.h"
+//#include "barchartview.h"
+//#include "barchartdataset.h"
 
 int main(int argc, char *argv[])
 {

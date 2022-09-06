@@ -1,11 +1,4 @@
 #include "newchart.h"
-#include <QLabel>
-#include <QDialogButtonBox>
-#include <QVBoxLayout>
-#include <QGroupBox>
-#include <QMessageBox>
-#include "QDebug"
-#include "chartcontroller.h"
 
 newChart::newChart(listaController* LC) : list(LC)
 {

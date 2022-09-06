@@ -1,25 +1,31 @@
 #ifndef TABLE_H
 #define TABLE_H
 
+#include "newchart.h"
+#include "listacontroller.h"
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QLineEdit>
 #include <QDoubleSpinBox>
 #include <QComboBox>
-#include "record.h"
-#include <QList>
-#include <QTableWidget>
 #include <QDateEdit>
-#include "listacontroller.h"
-#include "newchart.h"
+#include <QTableWidget>
+#include <QTableWidgetItem>
+#include <QDebug>
+#include <QtWidgets>
+#include <QFileDialog>
+#include <QDir>
+#include "filehandler.h"
+
+class fileHandler;
 
 class table : public QWidget
 {
     Q_OBJECT
 public:
     table(listaController*);
+    QTableWidget* getTable();
 private:
-    QList<record> lista;
     QTableWidget *tabella;
     QPushButton *submitButton;
     QPushButton *removeButton;
@@ -33,14 +39,17 @@ private:
     QDateEdit* data;
     QComboBox* continente;
     listaController *dataController;
+    fileHandler* file;
 signals:
     void closeWindow();
+    void openFile();
+    void createTable();
+    void exportFile();
 public slots:
     void deleteLastRow();
     void addRow();
-    void importData();
-    void exportFile();
     void SelectChart();
+    void importData(const QStringList&);
 };
 
 #endif // TABLE_H

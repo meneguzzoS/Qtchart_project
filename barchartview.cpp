@@ -1,7 +1,4 @@
 #include "barchartview.h"
-#include <QBarCategoryAxis>
-#include <QValueAxis>
-#include "QDebug"
 
 barChartView::barChartView()
 {
@@ -34,28 +31,28 @@ void barChartView::insertData(ChartData* s)
 
 }
 
-void barChartView::setDesign(model* d)
+void barChartView::setDesign(int year, double max)
 {
     QStringList categories;
-    categories << QString::number(d->getYear());
+    categories << QString::number(year);
     QBarCategoryAxis *axisX = new QBarCategoryAxis();
     axisX->append(categories);
     chart->addAxis(axisX, Qt::AlignBottom);
     series->attachAxis(axisX);
 
     QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0,d->getMax()+5000);
-    qDebug() << d->getMin() << d->getMax();
-    for(auto& a : d->getData()) {
-        state* p = dynamic_cast<state*>(a);
-        if(p)
-        qDebug() << p->nome << p->pil;
-    }
+    axisY->setRange(0,max+5000);
+//    qDebug() << min << max;
+//    for(auto& a : d->getData()) {
+//        state* p = dynamic_cast<state*>(a);
+//        if(p)
+//        qDebug() << p->nome << p->pil;
+//    }
 
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
     series->setLabelsVisible();
     series->setLabelsPosition(QAbstractBarSeries::LabelsOutsideEnd);
     axisX->setTitleText("Anno di riferimento");
-    axisY->setTitleText("PIL Stato (in mln)");
+    axisY->setTitleText("PIL Stato (in mld)");
 }

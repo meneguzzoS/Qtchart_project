@@ -10,7 +10,14 @@
 #include <QFile>
 #include <QXmlStreamWriter>
 #include <QXmlStreamReader>
-#include "listacontroller.h"
+//#include "listacontroller.h"
+#include <QMenuBar>
+#include <QFileDialog>
+#include <QDir>
+#include <QStatusBar>
+#include <QMessageBox>
+#include <string>
+#include "table.h"
 
 class MainWindow : public QMainWindow
 {
@@ -38,6 +45,8 @@ private:
     listaController* dataController;
 public:
      MainWindow(QWidget *parent = 0);
+signals:
+     void openF();
 };
 
 #endif // MAINWINDOW_H

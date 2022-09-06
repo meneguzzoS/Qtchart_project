@@ -1,48 +1,63 @@
 #include "filehandler.h"
-#include <QString>
-#include <QFile>
-#include <QFileDialog>
-#include <QTextStream>
-#include <QDebug>
 
-void fileHandler::readFile(const listaController& dataController)
+fileHandler::fileHandler(table* t) : tabella(t)
 {
-//    QString filename = QFileDialog::getOpenFileName(/*this,*/ "Apri il tuo file", QDir::homePath(), "CSV File (*.csv)");
-//        qDebug()<<filename;
+    connect(tabella,SIGNAL(openFile()),this,SLOT(readFile()));
+    connect(tabella,SIGNAL(exportFile()),this,SLOT(saveFile()));
+//    connect(MainWindow,SIGNAL(openFile()),this,SLOT(readFile()));
 
-//        QFile targetFile(filename);
+}
 
-//        if(!targetFile.open(QFile::ReadOnly | QFile::Text)) {
-//            qDebug() << "Impossibile leggere il file";
-//            return;
-//        }
+void fileHandler::readFile()
+{
+    QString filename = QFileDialog::getOpenFileName(tabella, "Apri il tuo file", QDir::homePath(), "CSV File (*.csv)");
+    qDebug()<<filename;
 
-//    QTextStream in(&targetFile);
+    QFile targetFile(filename);
 
-//    while(!in.atEnd()) {
-//        QString line = in.readLine(); // \n
-//        line = line.simplified();
-//        line.replace(" ",""); //rimuove gli spazi bianchi
-//        QStringList data = line.split(',');
+    if(!targetFile.open(QFile::ReadOnly | QFile::Text)) {
+        qDebug() << "Impossibile leggere il file";
+        return;
+    }
 
-//        //inserisco elementi appena presi dal file nella lista
-//        record nuovo;
-//        nuovo.setName(data.at(0));
-//        nuovo.setPIL(QString(data.at(1)).toInt());
-//        nuovo.setData(QDate::fromString(QString(data.at(2)), "dd.MM.yyyy"));
-//        if(data.at(3)=="Europa")
-//            nuovo.setContinente(0);
-//        if(data.at(3)=="Asia")
-//            nuovo.setContinente(1);
-//        if(data.at(3)=="America")
-//            nuovo.setContinente(2);
-//        if(data.at(3)=="Africa")
-//            nuovo.setContinente(3);
-//        if(data.at(3)=="Oceania")
-//            nuovo.setContinente(4);
-//        dataController.addToList(nuovo);
-//    }
-//    for(int i=0; i<dataController.listaSize();i++) {
-//        qDebug() << dataController.getList()->at(i).getName() << dataController.getList()->at(i).getPIL() << dataController.getList()->at(i).getData() << dataController.getList()->at(i).getContinente();
-//    }
+    QTextStream in(&targetFile);
+
+    while(!in.atEnd()) {
+        QString line = in.readLine(); // \n
+        line = line.simplified();
+        line.replace(" ",""); //rimuove gli spazi bianchi
+        QStringList data = line.split(',');
+        tabella->importData(data);
+    }
+}
+
+void fileHandler::saveFile()
+{
+
+    // Creazione oggetto "destinazione"
+    QString filename = QFileDialog::getOpenFileName(tabella, "Seleziona il tuo file di destinazione", QDir::homePath(), "CSV File (*.csv)");
+    QFile targetFile(filename);
+
+    // Apertura file in scrittura
+    if(!targetFile.open(QFile::WriteOnly | QFile::Text)) {
+        qDebug() << "File impossibile da aprire";
+        return;
+    }
+
+    // Creazione stream di dati VERSO il file
+    QTextStream out(&targetFile);
+    QStringList strList;
+
+    for(int r=0; r< tabella->getTable()->rowCount(); r++) {
+        strList.clear();
+        for(int c=0;c<tabella->getTable()->columnCount(); c++) {
+            tabella->getTable()->setCurrentCell(r,c);
+            strList << tabella->getTable()->currentItem()->text();
+        }
+        out << strList.join(",")+"\n";
+    }
+
+    targetFile.flush();
+    targetFile.close();
+
 }

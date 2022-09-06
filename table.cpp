@@ -1,14 +1,4 @@
 #include "table.h"
-#include<QTableWidget>
-#include<QTableWidgetItem>
-#include <QLineEdit>
-#include <QComboBox>
-#include <QDoubleSpinBox>
-#include <QDateEdit>
-#include <QDebug>
-#include <QtWidgets>
-#include <QFileDialog>
-#include <QDir>
 
 table::table(listaController* LC) : dataController(LC)
 {
@@ -33,13 +23,13 @@ table::table(listaController* LC) : dataController(LC)
             for(int j=0; j<tabella->columnCount(); j++) {
                 item = new QTableWidgetItem;
                 switch(j) {
-                case 0: item->setText(QString(dataController->getList()->at(i).getName()));
+                case 0: item->setText(QString(dataController->getName(i)));
                     break;
-                case 1: item->setText(QString::number(dataController->getList()->at(i).getPIL()));
+                case 1: item->setText(QString::number(dataController->getPIL(i)));
                     break;
-                case 2: item->setText(QString(dataController->getList()->at(i).getData().toString("dd.MM.yyyy")));
+                case 2: item->setText(QString(dataController->getData(i).toString("dd.MM.yyyy")));
                     break;
-                case 3: switch(dataController->getList()->at(i).getContinente()) { //OTTIMIZZARE
+                case 3: switch(dataController->getContinente(i)) { //OTTIMIZZARE
                     case Europa: item->setText(QString("Europa")); break;
                     case Asia: item->setText(QString("Asia")); break;
                     case America : item->setText(QString("America")); break;
@@ -114,37 +104,41 @@ table::table(listaController* LC) : dataController(LC)
         tab2->setAlignment(FieldLayout,Qt::AlignTop);
         tab2->setSpacing(30);
 
+        file = new fileHandler(this);
+
         connect(quitButton,&QPushButton::clicked,this,[this](){emit closeWindow();});
         connect(removeButton,SIGNAL(clicked(bool)),this,SLOT(deleteLastRow()));
         connect(submitButton,SIGNAL(clicked(bool)),this,SLOT(addRow()));
-        connect(loadButton,SIGNAL(clicked(bool)),this,SLOT(importData()));
-        connect(printFileButton,SIGNAL(clicked(bool)),this,SLOT(exportFile()));
+        connect(loadButton,&QPushButton::clicked,this,[this](){emit openFile();});
+//        connect(printFileButton,SIGNAL(clicked(bool)),this,SLOT(exportFile()));
         connect(selectButton,SIGNAL(clicked(bool)),this,SLOT(SelectChart()));
+        connect(printFileButton,&QPushButton::clicked,this,[this](){emit exportFile();});
+        //        connect(parent,SIGNAL(openF()),this,[this](){emit openFile();});
+}
+
+QTableWidget *table::getTable()
+{
+    return tabella;
 }
 
 void table::deleteLastRow()
 {
     int row = tabella->currentRow();
-    tabella->removeRow(row); //creare una funzione che elimina il record
+    tabella->removeRow(row);
     if(dataController->listaSize()>0)
         dataController->removeFromList(row);
 }
 
 void table::addRow()
 {
-    record nuovo;
-    nuovo.setName(Nome->text());
-    nuovo.setData(data->date());
-    nuovo.setPIL(PIL->value());
-    nuovo.setContinente(continente->currentIndex());
-    dataController->addToList(nuovo);
+    dataController->InsertRecord(Nome->text(),data->date(),PIL->value(),continente->currentIndex());
 
     int row = tabella->rowCount();
     tabella->insertRow(row);
-    tabella->setItem(row, 0, new QTableWidgetItem(nuovo.getName()));
-    tabella->setItem(row, 1, new QTableWidgetItem(QString::number(nuovo.getPIL())));
-    tabella->setItem(row, 2, new QTableWidgetItem(nuovo.getData().toString("dd.MM.yyyy")));
-    switch(nuovo.getContinente()) {
+    tabella->setItem(row, 0, new QTableWidgetItem(dataController->getListData(dataController->listaSize()-1).getName()));
+    tabella->setItem(row, 1, new QTableWidgetItem(QString::number(dataController->getListData(dataController->listaSize()-1).getPIL())));
+    tabella->setItem(row, 2, new QTableWidgetItem(dataController->getListData(dataController->listaSize()-1).getData().toString("dd.MM.yyyy")));
+    switch(dataController->getListData(dataController->listaSize()-1).getContinente()) {
     case Europa: tabella->setItem(row, 3, new QTableWidgetItem("Europa")); break;
     case Asia: tabella->setItem(row, 3, new QTableWidgetItem("Asia")); break;
     case America: tabella->setItem(row, 3, new QTableWidgetItem("America")); break;
@@ -154,84 +148,23 @@ void table::addRow()
     tabella->setCurrentCell(row,3);
 }
 
-void table::importData()
+void table::importData(const QStringList& data)
 {
-    QString filename = QFileDialog::getOpenFileName(this, "Apri il tuo file", QDir::homePath(), "CSV File (*.csv)");
-    qDebug()<<filename;
+    int row;
+    row = tabella->rowCount();
+    tabella->insertRow(row);
+    tabella->setItem(row, 0, new QTableWidgetItem(data.at(0)));
+    tabella->setItem(row, 1, new QTableWidgetItem(data.at(1)));
+    tabella->setItem(row, 2, new QTableWidgetItem(data.at(2)));
+    tabella->setItem(row, 3, new QTableWidgetItem(data.at(3)));
+    tabella->setCurrentCell(row,3);
 
-    QFile targetFile(filename);
+    //inserisco elementi appena presi dal file nella lista
+    dataController->fromTableToList(data);
 
-    if(!targetFile.open(QFile::ReadOnly | QFile::Text)) {
-        qDebug() << "Impossibile leggere il file";
-        return;
-    }
-
-    QTextStream in(&targetFile);  
-
-    while(!in.atEnd()) {
-        QString line = in.readLine(); // \n
-        line = line.simplified();
-        line.replace(" ",""); //rimuove gli spazi bianchi
-        QStringList data = line.split(',');
-
-        int row;
-        row = tabella->rowCount();
-        tabella->insertRow(row);
-        tabella->setItem(row, 0, new QTableWidgetItem(data.at(0)));
-        tabella->setItem(row, 1, new QTableWidgetItem(data.at(1)));
-        tabella->setItem(row, 2, new QTableWidgetItem(data.at(2)));
-        tabella->setItem(row, 3, new QTableWidgetItem(data.at(3)));
-        tabella->setCurrentCell(row,3);
-
-        //inserisco elementi appena presi dal file nella lista
-        record nuovo;
-        nuovo.setName(data.at(0));
-        nuovo.setPIL(QString(data.at(1)).toInt());
-        nuovo.setData(QDate::fromString(QString(data.at(2)), "dd.MM.yyyy"));
-        if(data.at(3)=="Europa")
-            nuovo.setContinente(0);
-        if(data.at(3)=="Asia")
-            nuovo.setContinente(1);
-        if(data.at(3)=="America")
-            nuovo.setContinente(2);
-        if(data.at(3)=="Africa")
-            nuovo.setContinente(3);
-        if(data.at(3)=="Oceania")
-            nuovo.setContinente(4);
-        dataController->addToList(nuovo);
-    }
-    for(int i=0; i<dataController->listaSize();i++) {
-        qDebug() << dataController->getList()->at(i).getName() << dataController->getList()->at(i).getPIL() << dataController->getList()->at(i).getData() << dataController->getList()->at(i).getContinente();
-    }
-}
-
-void table::exportFile()
-{
-    // Creazione oggetto "destinazione"
-    QString filename = QFileDialog::getOpenFileName(this, "Seleziona il tuo file di destinazione", QDir::homePath(), "CSV File (*.csv)");
-    QFile targetFile(filename);
-
-    // Apertura file in scrittura
-    if(!targetFile.open(QFile::WriteOnly | QFile::Text)) {
-        qDebug() << "File impossibile da aprire";
-        return;
-    }
-
-    // Creazione stream di dati VERSO il file
-    QTextStream out(&targetFile);
-    QStringList strList;
-
-    for(int r=0; r< tabella->rowCount(); r++) {
-        strList.clear();
-        for(int c=0;c<tabella->columnCount(); c++) {
-            tabella->setCurrentCell(r,c);
-            strList << tabella->currentItem()->text();
-        }
-        out << strList.join(",")+"\n";
-    }
-
-    targetFile.flush();
-    targetFile.close();
+//    for(int i=0; i<dataController->listaSize();i++) {
+//        qDebug() << dataController->getList()->at(i).getName() << dataController->getList()->at(i).getPIL() << dataController->getList()->at(i).getData() << dataController->getList()->at(i).getContinente();
+//    }
 }
 
 void table::SelectChart()
@@ -262,7 +195,6 @@ void table::SelectChart()
                             nuovo.setContinente(4);
                     break;
                 }
-                //tabella->setItem(r,c,item);
                 tabella->setCurrentCell(r,c);
             }
             dataController->addToList(nuovo);

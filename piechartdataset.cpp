@@ -1,5 +1,4 @@
 #include "piechartdataset.h"
-#include "QDebug"
 
 pieChartDataset::pieChartDataset(const listaController& lista, int i) : year(i)
 {
