@@ -6,16 +6,21 @@ newChart::newChart(listaDati* LC) : list(LC)
         resize(500,200);
         setModal(true);
         QDialog::reject();//con il tasto esc esco dalla finestra
-        QLabel* label=new QLabel("Inserisci l'anno/gli anni da prendere in considerazione");
-        QSpinBox *years=new QSpinBox();
-        years->setValue(2000);
-        years->setRange(1950,2021);
+        QLabel* firstLabel=new QLabel("Inserisci l'anno/gli anni da prendere in considerazione");
+        firstdate=new QSpinBox;
+        firstdate->setValue(2000);
+        firstdate->setRange(1950,2021);
+        QLabel* secondLable = new QLabel("fino a: ");
+        secondDate = new QSpinBox;
+        secondDate->setRange(1950,2021);
 //        ndati->setRange(0,99);
 //        ndati->setValue(0);
 //        ndati->setAccelerated(true);
         QHBoxLayout* inputlayout= new QHBoxLayout();
-       inputlayout->addWidget(label);
-        inputlayout->addWidget(years);
+        inputlayout->addWidget(firstLabel);
+        inputlayout->addWidget(firstdate);
+        inputlayout->addWidget(secondLable);
+        inputlayout->addWidget(secondDate);
         QGroupBox* tipografico=new QGroupBox(tr("tipologie di Chart"));
         QLabel* grafico=new QLabel("Sciegli il tipo di grafico che vuoi creare");
         linechart=new QRadioButton("LineChart");
@@ -61,6 +66,7 @@ void newChart::lineChecked()
     linechart->setChecked(true);
     piechart->setChecked(false);
     barchart->setChecked(false);
+    secondDate->setDisabled(false);
 }
 
 void newChart::pieChecked()
@@ -68,6 +74,7 @@ void newChart::pieChecked()
     linechart->setChecked(false);
     piechart->setChecked(true);
     barchart->setChecked(false);
+    secondDate->setDisabled(true);
 }
 
 void newChart::barChecked()
@@ -75,6 +82,7 @@ void newChart::barChecked()
     linechart->setChecked(false);
     piechart->setChecked(false);
     barchart->setChecked(true);
+    secondDate->setDisabled(true);
 }
 
 void newChart::createChart()

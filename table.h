@@ -16,6 +16,9 @@
 #include <QFileDialog>
 #include <QDir>
 #include "filehandler.h"
+//#include "listacontroller.h"
+
+class listacontroller;
 
 class table : public QWidget
 {
@@ -23,6 +26,10 @@ class table : public QWidget
 public:
     table(listaDati*);
     QTableWidget* getTable();
+    QString getName();
+    double getPil();
+    QDate getDate();
+    int getContinent();
 private:
     QTableWidget *tabella;
     QPushButton *submitButton;
@@ -37,15 +44,19 @@ private:
     QDateEdit* data;
     QComboBox* continente;
     listaDati *dataController;
+    listacontroller* controller;
     fileHandler* file;
 signals:
     void closeWindow();
     void openFile();
     void createTable();
     void exportFile();
-public slots:
     void deleteLastRow();
-    void addRow();
+    void submitPressed();
+    void fileTable(QStringList);
+    void setValue();
+public slots:
+    void addRow(QString,double,QDate,MacroArea);
     void SelectChart();
     void importData(const QStringList&);
 };

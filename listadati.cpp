@@ -1,7 +1,7 @@
 #include "listadati.h"
 #include "table.h"
 
-listaDati::listaDati(QList<record> *lista) : addressLista(lista)
+listaDati::listaDati(QList<record> *lista) : addressLista(lista ? lista : new QList<record>)
 {
     record b("italia", QDate(2008,1,3), 3000, Europa);
     record c("francia", QDate(2008,2,1), 4000, Europa);
@@ -84,7 +84,7 @@ bool listaDati::isListaEmpty() const
     return addressLista->isEmpty();
 }
 
-record listaDati::getListData(int i) const
+const record& listaDati::getListData(int i)
 {
     return addressLista->at(i);
 }

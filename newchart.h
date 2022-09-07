@@ -29,6 +29,8 @@ public:
 private:
     listaDati *list;
     QList<int>* year;
+    QSpinBox *firstdate;
+    QSpinBox *secondDate;
      //int n;
      //QSpinBox* ndati;
      QPushButton* ok;

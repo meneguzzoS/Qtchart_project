@@ -7,7 +7,7 @@
 class listaDati
 {
 public:
-    listaDati(QList<record>* lista = nullptr);
+    listaDati(QList<record>* = nullptr);
     void addToList(const record&);
     void removeFromList(int);
     QList<QString> getNomiStati() const;
@@ -15,7 +15,7 @@ public:
     QList<record> * getList();
     const QList<record> * getList() const;
     bool isListaEmpty() const;
-    record getListData(int i) const;
+    const record& getListData(int i);
     QString getName(int) const;
     QDate getData(int) const;
     double getPIL(int) const;

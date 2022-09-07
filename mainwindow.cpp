@@ -48,8 +48,8 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent)
     barchart->setEnabled(false);
     linechart->setEnabled(false);
     pointchart->setEnabled(false);
-    QList<record> *p= new QList<record>;
-    dataController = new listaDati(p);
+//    QList<record> *p= new QList<record>;
+    dataController = new listaDati(/*p*/);
     table* t = new table(dataController);
     setCentralWidget(t);
 
