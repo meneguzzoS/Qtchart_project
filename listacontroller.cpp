@@ -2,13 +2,13 @@
 
 listacontroller::listacontroller(listaDati* d,table* t) : dati(d), vista(t)
 {
-//    dati = new listaDati;
-//    tabella = new table(dati);
+    fileHandler* file = new fileHandler(t);
 
     connect(vista,SIGNAL(deleteLastRow()),this,SLOT(deleteRow()));
     connect(vista,SIGNAL(submitPressed()),this,SLOT(newRow()));
     connect(vista,SIGNAL(fileTable(QStringList)),this,SLOT(fromFiletoTable(QStringList)));
     connect(vista,SIGNAL(setValue()),this,SLOT(changeRecord()));
+    connect(vista,SIGNAL(charts()),this,SLOT(selectChart()));
 }
 
 void listacontroller::deleteRow()
@@ -71,7 +71,51 @@ void listacontroller::changeRecord()
             change.setContinente(4);
 
     }
-//    (static_cast<record&>(dati->getListData(vista->getTable()->currentRow()))).setName("ciao");
-//    for(record a : *(dati->getList()))
-//        qDebug() << a.getName();
+}
+
+void listacontroller::selectChart()
+{
+    select = new newChart(dati);
+    select->show();
+    connect(select,SIGNAL(bar()),this,SLOT(barChart()));
+    connect(select,SIGNAL(line()),this,SLOT(lineChart()));
+    connect(select,SIGNAL(pie()),this,SLOT(pieChart()));
+}
+
+void listacontroller::barChart()
+{
+    barChartDataset *m = new barChartDataset(*dati,select->getFirstDate());
+    barChartView *v = new barChartView;
+    ChartController c(m,v);
+    v->show();
+}
+
+void listacontroller::lineChart()
+{
+    if(select->getFirstDate() >= select->getSecondDate())
+        QMessageBox::information(select,"hola","ccc",QMessageBox::Ok);
+    else {
+        QList<int> years;
+        for(int i = select->getFirstDate(); i <= select->getSecondDate(); i++)
+            years.push_back(i);
+        lineChartDataset* m = new lineChartDataset(*dati,years);
+            if(m->isEmpty()) {
+                QMessageBox::information(select,"Nessun dato","Non sono presenti pil di nessun paese nell'arco temporale indicato",QMessageBox::Ok);
+                delete m;
+            }
+            else {
+                lineChartView* v = new lineChartView;
+                ChartController c(m,v);
+                v->show();
+            }
+    }
+
+}
+
+void listacontroller::pieChart()
+{
+    pieChartDataset* m = new pieChartDataset(*dati,select->getFirstDate());
+    pieChartView* v = new pieChartView;
+    ChartController c(m,v);
+    v->show();
 }

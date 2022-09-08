@@ -57,3 +57,8 @@ double lineChartDataset::getMin() const
     }
     return i;
 }
+
+bool lineChartDataset::isEmpty()
+{
+    return data.isEmpty();
+}

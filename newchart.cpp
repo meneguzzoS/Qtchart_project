@@ -61,6 +61,24 @@ newChart::newChart(listaDati* LC) : list(LC)
         connect(ok,SIGNAL(clicked(bool)),this,SLOT(close()));
 }
 
+int newChart::getFirstDate()
+{
+    return firstdate->value();
+}
+
+int newChart::getSecondDate()
+{
+    return secondDate->value();
+}
+
+void newChart::barChecked()
+{
+    linechart->setChecked(false);
+    piechart->setChecked(false);
+    barchart->setChecked(true);
+    secondDate->setDisabled(true);
+}
+
 void newChart::lineChecked()
 {
     linechart->setChecked(true);
@@ -77,36 +95,12 @@ void newChart::pieChecked()
     secondDate->setDisabled(true);
 }
 
-void newChart::barChecked()
-{
-    linechart->setChecked(false);
-    piechart->setChecked(false);
-    barchart->setChecked(true);
-    secondDate->setDisabled(true);
-}
-
 void newChart::createChart()
 {
-    int b=2007,c=2008, d=2009, e=2010;
-    year = new QList<int>;
-    year->push_back(b);
-    year->push_back(c);
-    year->push_back(d);
-    year->push_back(e);
-    model* nuovo;
-    view* vista;
-    if(linechart->isChecked()) {
-        nuovo = new lineChartDataset(*list,*year);
-        vista = new lineChartView;
-    }
-    if(piechart->isChecked()) {
-        nuovo = new pieChartDataset(*list,year->at(0));
-        vista = new pieChartView;
-    }
-    if(barchart->isChecked()) {
-        nuovo = new barChartDataset(*list,year->at(0));
-        vista = new barChartView;
-    }
-    ChartController ctr(nuovo, vista);
-    vista->show();
+        if(barchart->isChecked())
+            emit bar();
+        if(linechart->isChecked())
+            emit line();
+        if(piechart->isChecked())
+            emit pie();
 }

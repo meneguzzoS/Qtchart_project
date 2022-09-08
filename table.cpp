@@ -1,11 +1,9 @@
 #include "table.h"
-#include "listacontroller.h"
-#include "listadati.h"
 
 table::table(listaDati* LC) : dataController(LC)
 {
         setWindowTitle("Tabella prodotti");
-//        dataController = new listaController(&lista);
+        setGeometry(180,100,1300,800);
 
         //creazione tabella
         tabella = new QTableWidget;
@@ -107,20 +105,13 @@ table::table(listaDati* LC) : dataController(LC)
         tab2->setAlignment(FieldLayout,Qt::AlignTop);
         tab2->setSpacing(30);
 
-        file = new fileHandler(this);
-        controller = new listacontroller(dataController,this);
-
-        connect(quitButton,&QPushButton::clicked,this,[this](){emit closeWindow();});
-        connect(removeButton,&QPushButton::clicked,controller,[this](){emit deleteLastRow();});
-        connect(submitButton,&QPushButton::clicked,controller,[this](){emit submitPressed();});
-//        connect(removeButton,SIGNAL(clicked(bool)),this,SLOT(deleteLastRow()));
-//        connect(submitButton,SIGNAL(clicked(bool)),this,SLOT(addRow()));
+        connect(quitButton,SIGNAL(clicked(bool)),this,SLOT(close()));
+        connect(removeButton,&QPushButton::clicked,this,[this](){emit deleteLastRow();});
+        connect(submitButton,&QPushButton::clicked,this,[this](){emit submitPressed();});
         connect(loadButton,&QPushButton::clicked,this,[this](){emit openFile();});
-//        connect(printFileButton,SIGNAL(clicked(bool)),this,SLOT(exportFile()));
-        connect(selectButton,SIGNAL(clicked(bool)),this,SLOT(SelectChart()));
+        connect(selectButton,&QPushButton::clicked,this,[this](){emit charts();});
         connect(printFileButton,&QPushButton::clicked,this,[this](){emit exportFile();});
         connect(tabella,&QTableWidget::cellChanged,this,[this](){emit setValue();});
-        //        connect(parent,SIGNAL(openF()),this,[this](){emit openFile();});
 }
 
 QTableWidget *table::getTable()
@@ -184,43 +175,8 @@ void table::importData(const QStringList& data)
 //    }
 }
 
-void table::SelectChart()
-{
-//    while(!dataController->isListaEmpty()){
-//        dataController->getList()->pop_back();
-//    }
-//    for(int r=0; r< tabella->rowCount(); r++) {
-//        record nuovo;
-//            for(int c=0;c<tabella->columnCount(); c++) {
-//                tabella->setCurrentCell(r,c);
-//                switch(c) {
-//                case 0: nuovo.setName(tabella->currentItem()->text());
-//                    break;
-//                case 1: nuovo.setPIL(QString(tabella->currentItem()->text()).toInt());
-//                    break;
-//                case 2: nuovo.setData(QDate::fromString(QString(tabella->currentItem()->text()), "dd.MM.yyyy"));
-//                    break;
-//                case 3: if(tabella->currentItem()->text()=="Europa")
-//                            nuovo.setContinente(0);
-//                        if(tabella->currentItem()->text()=="Asia")
-//                            nuovo.setContinente(1);
-//                        if(tabella->currentItem()->text()=="America")
-//                            nuovo.setContinente(2);
-//                        if(tabella->currentItem()->text()=="Africa")
-//                            nuovo.setContinente(3);
-//                        if(tabella->currentItem()->text()=="Oceania")
-//                            nuovo.setContinente(4);
-//                    break;
-//                }
-//                tabella->setCurrentCell(r,c);
-//            }
-//            dataController->addToList(nuovo);
-//            //qDebug() << nuovo.getName() << nuovo.getPIL() << nuovo.getData() << nuovo.getContinente();
-//        }
-//    for(QList<record>::const_iterator a = dataController->getList()->begin(); a != dataController->getList()->end(); a++)
-//        qDebug() << "selectChart" <<(*a).getName() << (*a).getPIL() << (*a).getData() << (*a).getContinente();
-
-
+//void table::SelectChart()
+//{
 //    newChart *select = new newChart(dataController);
 //    select->show();
-}
+//}

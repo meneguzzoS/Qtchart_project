@@ -24,7 +24,7 @@ private:
 public:
     pieChartView();
     void insertData(ChartData*);
-    void setDesign(QString);
+    void setDesign(QList<ChartData*>);
 };
 
 #endif // PIECHARTVIEW_H

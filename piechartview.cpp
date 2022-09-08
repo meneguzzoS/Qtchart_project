@@ -30,16 +30,16 @@ void pieChartView::insertData(ChartData* a)
 
 }
 
-void pieChartView::setDesign(QString s)
+void pieChartView::setDesign(QList<ChartData*> s)
 {
     int i = 0;
     for(QPieSlice* slice : series->slices()) {
-//        slice->setLabel(QString("%1%").arg(100*slice->percentage(), 0, 'f', 1)+(" ")+QString(d->getData().at(i)->nome));
+        slice->setLabel(QString("%1%").arg(100*slice->percentage(), 0, 'f', 1)+(" ")+QString(s.at(i)->nome));
         slice->setExploded();
         slice->setLabelVisible();
         slice->setLabelPosition(QPieSlice::LabelOutside);
         i++;
     }
-    QValueAxis* axisX = new QValueAxis;
-    axisX->setLabelFormat("%d");
+//    QValueAxis* axisX = new QValueAxis;
+    //axisX->setLabelFormat("%d");
 }

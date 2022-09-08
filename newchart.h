@@ -26,6 +26,8 @@ class newChart : public QDialog
 Q_OBJECT
 public:
     newChart(listaDati* LC = nullptr);
+    int getFirstDate();
+    int getSecondDate();
 private:
     listaDati *list;
     QList<int>* year;
@@ -38,6 +40,10 @@ private:
      QRadioButton* piechart;
      QRadioButton* linechart;
      QRadioButton* barchart;
+signals:
+     void bar();
+     void line();
+     void pie();
 public slots:
      void lineChecked();
      void pieChecked();

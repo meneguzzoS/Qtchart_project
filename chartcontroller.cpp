@@ -1,9 +1,12 @@
 #include "chartcontroller.h"
+#include "QDebug"
 
 ChartController::ChartController(model* m,view* v) : dati(m), vista(v)
 {
-    for(auto& l : m->getData())
+    for(auto& l : m->getData()) {
             v->insertData(l);
+            qDebug()<<l->nome;
+    }
     barChartView* bar = dynamic_cast<barChartView*>(v);
     if(bar) {
         bar->setDesign(m->getYear(),m->getMax());
@@ -14,7 +17,9 @@ ChartController::ChartController(model* m,view* v) : dati(m), vista(v)
     }
     pieChartView* pie = dynamic_cast<pieChartView*>(v);
     if(pie) {
+        QList<ChartData*> s;
         for(const auto& name : m->getData())
-        pie->setDesign(name->nome);
+            s.push_back(name);
+        pie->setDesign(s);
     }
 }

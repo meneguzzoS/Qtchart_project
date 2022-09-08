@@ -7,11 +7,15 @@
 #include "listadati.h"
 //#include "barchartview.h"
 //#include "barchartdataset.h"
+#include "listacontroller.h"
+#include "table.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    listaDati d;
+    table t(&d);
+    listacontroller c(&d,&t);
+    t.show();
     return a.exec();
 }

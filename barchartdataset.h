@@ -14,6 +14,7 @@ private:
     int year;
 public:
     barChartDataset(const listaDati&, int);
+    ~barChartDataset();
     QList<ChartData*> getData() const;
     int getYear() const;
     double getMax() const;

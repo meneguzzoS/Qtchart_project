@@ -16,6 +16,7 @@ protected:
     //QList<ChartData*> data;
 public:
     model();
+    virtual ~model() = default;
     virtual QList<ChartData*> getData() const =0;
     virtual int getYear() const;
     virtual double getMin() const; //forse questi due possono già essere implementati

@@ -8,6 +8,7 @@
 #include <QFileDialog>
 #include <QTextStream>
 #include <QDebug>
+//#include "table.h"
 class table;
 
 class fileHandler : QObject

@@ -18,6 +18,7 @@ public:
     QList<ChartData*> getData() const override;
     double getMax() const override;
     double getMin() const override;
+    bool isEmpty();
 };
 
 #endif // LINECHARTDATASET_H

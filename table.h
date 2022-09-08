@@ -1,7 +1,6 @@
 #ifndef TABLE_H
 #define TABLE_H
 
-#include "newchart.h"
 #include "listadati.h"
 #include <QDialogButtonBox>
 #include <QPushButton>
@@ -15,10 +14,6 @@
 #include <QtWidgets>
 #include <QFileDialog>
 #include <QDir>
-#include "filehandler.h"
-//#include "listacontroller.h"
-
-class listacontroller;
 
 class table : public QWidget
 {
@@ -44,10 +39,7 @@ private:
     QDateEdit* data;
     QComboBox* continente;
     listaDati *dataController;
-    listacontroller* controller;
-    fileHandler* file;
 signals:
-    void closeWindow();
     void openFile();
     void createTable();
     void exportFile();
@@ -55,9 +47,10 @@ signals:
     void submitPressed();
     void fileTable(QStringList);
     void setValue();
+    void charts();
 public slots:
     void addRow(QString,double,QDate,MacroArea);
-    void SelectChart();
+//    void SelectChart();
     void importData(const QStringList&);
 };
 
