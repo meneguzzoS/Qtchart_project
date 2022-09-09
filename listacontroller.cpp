@@ -2,13 +2,19 @@
 
 listacontroller::listacontroller(listaDati* d,table* t) : dati(d), vista(t)
 {
-    fileHandler* file = new fileHandler(t);
+    fileHandler* file = new fileHandler(t,this);
 
     connect(vista,SIGNAL(deleteLastRow()),this,SLOT(deleteRow()));
     connect(vista,SIGNAL(submitPressed()),this,SLOT(newRow()));
     connect(vista,SIGNAL(fileTable(QStringList)),this,SLOT(fromFiletoTable(QStringList)));
     connect(vista,SIGNAL(setValue()),this,SLOT(changeRecord()));
     connect(vista,SIGNAL(charts()),this,SLOT(selectChart()));
+}
+
+listacontroller::~listacontroller()
+{
+//    if(select)
+        delete select;
 }
 
 void listacontroller::deleteRow()
@@ -69,13 +75,12 @@ void listacontroller::changeRecord()
             change.setContinente(3);
         if(vista->getTable()->currentItem()->text()=="Europa")
             change.setContinente(4);
-
     }
 }
 
 void listacontroller::selectChart()
 {
-    select = new newChart(dati);
+    select = new newChart(dati,vista);
     select->show();
     connect(select,SIGNAL(bar()),this,SLOT(barChart()));
     connect(select,SIGNAL(line()),this,SLOT(lineChart()));
@@ -85,37 +90,48 @@ void listacontroller::selectChart()
 void listacontroller::barChart()
 {
     barChartDataset *m = new barChartDataset(*dati,select->getFirstDate());
-    barChartView *v = new barChartView;
-    ChartController c(m,v);
-    v->show();
+    if(m->isEmpty()) {
+        select->showWarning(select,"Errore data","Nella data inserita non sono presenti PIL da poter inserire nel grafico");
+        delete m;
+    }
+    else {
+        barChartView *v = new barChartView(vista);
+        ChartController c(m,v);
+        v->show();
+    }
 }
 
 void listacontroller::lineChart()
 {
     if(select->getFirstDate() >= select->getSecondDate())
-        QMessageBox::information(select,"hola","ccc",QMessageBox::Ok);
+        select->showWarning(select,"Errore data","Data iniziale maggiore di data finale");
     else {
         QList<int> years;
         for(int i = select->getFirstDate(); i <= select->getSecondDate(); i++)
             years.push_back(i);
         lineChartDataset* m = new lineChartDataset(*dati,years);
             if(m->isEmpty()) {
-                QMessageBox::information(select,"Nessun dato","Non sono presenti pil di nessun paese nell'arco temporale indicato",QMessageBox::Ok);
+                select->showWarning(select,"Nessun dati presente","Non sono presenti PIL di nessun paese nell'arco temporale indicato");
                 delete m;
             }
             else {
-                lineChartView* v = new lineChartView;
+                lineChartView* v = new lineChartView(vista);
                 ChartController c(m,v);
                 v->show();
             }
     }
-
 }
 
 void listacontroller::pieChart()
 {
     pieChartDataset* m = new pieChartDataset(*dati,select->getFirstDate());
-    pieChartView* v = new pieChartView;
-    ChartController c(m,v);
-    v->show();
+    if(m->isEmpty()) {
+        select->showWarning(select,"Errore data","Nella data inserita non sono presenti PIL da poter inserire nel grafico");
+        delete m;
+    }
+    else {
+        pieChartView* v = new pieChartView(vista);
+        ChartController c(m,v);
+        v->show();
+    }
 }

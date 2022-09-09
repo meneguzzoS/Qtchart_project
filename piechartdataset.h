@@ -15,10 +15,11 @@ struct AvgContinent : public ChartData {
 class pieChartDataset : public model
 {
 private:
-    QList<ChartData*> data;
+//    QList<ChartData*> data;
     int year;
 public:
     pieChartDataset(const listaDati&,int);
+//    ~pieChartDataset();
     QList<ChartData*> getData() const override;
     int getYear() const override;
 };

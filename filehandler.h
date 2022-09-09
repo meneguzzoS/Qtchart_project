@@ -17,7 +17,7 @@ Q_OBJECT
 private:
     table* tabella;
 public:
-    fileHandler(table*);
+    fileHandler(table*,QObject* = nullptr);
 public slots:
     void readFile();
     void saveFile();

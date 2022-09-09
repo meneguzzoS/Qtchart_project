@@ -19,10 +19,10 @@ class pieChartView: public view
     Q_OBJECT
 private:
     //pieChartDataset *dati;
-    QChart* chart;
+//    QChart* chart;
     QPieSeries* series;
 public:
-    pieChartView();
+    pieChartView(QWidget* = nullptr);
     void insertData(ChartData*);
     void setDesign(QList<ChartData*>);
 };

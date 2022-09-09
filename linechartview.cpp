@@ -1,7 +1,7 @@
 #include "linechartview.h"
 
 
-lineChartView::lineChartView()
+lineChartView::lineChartView(QWidget* parent) : view(parent)
 {
     chart = new QChart();
     //QLineSeries *series = new QLineSeries;

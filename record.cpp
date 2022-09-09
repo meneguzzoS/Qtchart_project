@@ -2,14 +2,14 @@
 
 record::record() {}
 
-record::record(QString NS, QDate d, unsigned int p, MacroArea c) : nomeStato(NS), data(d), PIL(p), continente(c) {}
+record::record(QString NS,const QDate& d, unsigned int p,const MacroArea& c) : nomeStato(NS), data(d), PIL(p), continente(c) {}
 
 QString record::getName() const
 {
     return nomeStato;
 }
 
-QDate record::getData() const
+const QDate& record::getData() const
 {
     return data;
 }
@@ -19,7 +19,7 @@ double record::getPIL() const
     return PIL;
 }
 
-MacroArea record::getContinente() const
+const MacroArea& record::getContinente() const
 {
     return continente;
 }

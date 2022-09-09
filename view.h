@@ -12,7 +12,7 @@
 
 QT_CHARTS_USE_NAMESPACE
 
-struct ChartData;
+//struct ChartData;
 
 class view : public QWidget
 {
@@ -21,7 +21,7 @@ protected:
     QChart* chart;
     //QAbstractSeries *series; //verificare se ha senso ed è fattibile
 public:
-    view();
+    view(QWidget* = nullptr);
     virtual void insertData(ChartData*) =0;
     void setDesign();
 };

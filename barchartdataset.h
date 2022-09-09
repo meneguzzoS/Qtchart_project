@@ -10,11 +10,10 @@ struct state : public ChartData {
 class barChartDataset : public model
 {
 private:
-    QList<ChartData*> data;
+//    QList<ChartData*> data;
     int year;
 public:
     barChartDataset(const listaDati&, int);
-    ~barChartDataset();
     QList<ChartData*> getData() const;
     int getYear() const;
     double getMax() const;

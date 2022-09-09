@@ -12,13 +12,13 @@ struct stateData : public ChartData {
 class lineChartDataset : public model
 {
 private:
-    QList<ChartData*> data;
+//    QList<ChartData*> data;
 public:
     lineChartDataset(const listaDati&,const QList<int>&); //o anche QList<QData.year()>
+//    ~lineChartDataset();
     QList<ChartData*> getData() const override;
     double getMax() const override;
     double getMin() const override;
-    bool isEmpty();
 };
 
 #endif // LINECHARTDATASET_H

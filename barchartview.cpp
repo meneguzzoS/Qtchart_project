@@ -1,6 +1,6 @@
 #include "barchartview.h"
 
-barChartView::barChartView()
+barChartView::barChartView(QWidget* parent) : view(parent)
 {
     chart = new QChart;
     series = new QBarSeries;

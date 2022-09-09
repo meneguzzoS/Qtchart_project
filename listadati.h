@@ -8,6 +8,7 @@ class listaDati
 {
 public:
     listaDati(QList<record>* = nullptr);
+    ~listaDati();
     void addToList(const record&);
     void removeFromList(int);
     QList<QString> getNomiStati() const;

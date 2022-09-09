@@ -1,6 +1,6 @@
 #include "view.h"
 
-view::view()
+view::view(QWidget* parent) : QWidget(parent,Qt::Window)
 {
 
 }

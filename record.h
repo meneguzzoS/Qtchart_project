@@ -17,11 +17,11 @@ private:
     MacroArea continente;
 public:
     record();
-    record(QString, QDate, unsigned int, MacroArea);
+    record(QString,const QDate&, unsigned int,const MacroArea&);
     QString getName() const;
-    QDate getData() const;
+    const QDate& getData() const;
     double getPIL() const;
-    MacroArea getContinente() const;
+    const MacroArea& getContinente() const;
     void setName(const QString&);
     void setData(const QDate&);
     void setPIL(double);

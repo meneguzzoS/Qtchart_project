@@ -20,6 +20,7 @@ class listacontroller : public QObject
 Q_OBJECT
 public:
     listacontroller(listaDati*,table*);
+    ~listacontroller();
 private:
     listaDati* dati;
     table* vista;

@@ -1,6 +1,6 @@
 #include "newchart.h"
 
-newChart::newChart(listaDati* LC) : list(LC)
+newChart::newChart(listaDati* LC, QWidget* parent) : list(LC), QDialog(parent)
 {
     setWindowTitle("Crea un nuovo grafico");
         resize(500,200);
@@ -13,9 +13,6 @@ newChart::newChart(listaDati* LC) : list(LC)
         QLabel* secondLable = new QLabel("fino a: ");
         secondDate = new QSpinBox;
         secondDate->setRange(1950,2021);
-//        ndati->setRange(0,99);
-//        ndati->setValue(0);
-//        ndati->setAccelerated(true);
         QHBoxLayout* inputlayout= new QHBoxLayout();
         inputlayout->addWidget(firstLabel);
         inputlayout->addWidget(firstdate);
@@ -69,6 +66,11 @@ int newChart::getFirstDate()
 int newChart::getSecondDate()
 {
     return secondDate->value();
+}
+
+void newChart::showWarning(QWidget *parent, const QString& title, const QString& text)
+{
+    QMessageBox::warning(parent, title, text, QMessageBox::Ok);
 }
 
 void newChart::barChecked()

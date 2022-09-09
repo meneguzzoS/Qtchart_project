@@ -21,6 +21,12 @@ lineChartDataset::lineChartDataset(const listaDati& l,const QList<int>& y)
     }
 }
 
+//lineChartDataset::~lineChartDataset()
+//{
+//    for(auto& a : data)
+//        delete a;
+//}
+
 QList<ChartData*> lineChartDataset::getData() const
 {
     return data;
@@ -56,9 +62,4 @@ double lineChartDataset::getMin() const
 
     }
     return i;
-}
-
-bool lineChartDataset::isEmpty()
-{
-    return data.isEmpty();
 }

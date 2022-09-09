@@ -13,6 +13,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
     listaDati d;
     table t(&d);
     listacontroller c(&d,&t);

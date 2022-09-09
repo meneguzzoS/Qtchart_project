@@ -1,6 +1,6 @@
 #include "piechartview.h"
 
-pieChartView::pieChartView()
+pieChartView::pieChartView(QWidget* parent) : view(parent)
 {
     chart = new QChart;
     series = new QPieSeries;

@@ -25,9 +25,10 @@ class newChart : public QDialog
 {
 Q_OBJECT
 public:
-    newChart(listaDati* LC = nullptr);
+    newChart(listaDati* = nullptr, QWidget* = nullptr);
     int getFirstDate();
     int getSecondDate();
+    void showWarning(QWidget*,const QString&,const QString&);
 private:
     listaDati *list;
     QList<int>* year;

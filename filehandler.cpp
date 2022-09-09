@@ -1,11 +1,10 @@
 #include "filehandler.h"
 #include "table.h"
 
-fileHandler::fileHandler(table* t) : tabella(t)
+fileHandler::fileHandler(table* t, QObject* parent) : tabella(t), QObject(parent)
 {
     connect(tabella,SIGNAL(openFile()),this,SLOT(readFile()));
     connect(tabella,SIGNAL(exportFile()),this,SLOT(saveFile()));
-//    connect(MainWindow,SIGNAL(openFile()),this,SLOT(readFile()));
 
 }
 

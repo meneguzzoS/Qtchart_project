@@ -45,6 +45,12 @@ pieChartDataset::pieChartDataset(const listaDati& lista, int i) : year(i)
     }
 }
 
+//pieChartDataset::~pieChartDataset()
+//{
+//    for(auto& a : data)
+//        delete a;
+//}
+
 QList<ChartData*> pieChartDataset::getData() const
 {
     return data;

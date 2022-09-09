@@ -18,10 +18,10 @@ class lineChartView : public view
 {
 Q_OBJECT
 private:
-    QChart *chart;
+//    QChart *chart;
     QLineSeries *series;
 public:
-    lineChartView();
+    lineChartView(QWidget* = nullptr);
     void insertData(ChartData*);
     void setDesign(double,double);
 };

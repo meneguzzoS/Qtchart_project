@@ -35,7 +35,12 @@ listaDati::listaDati(QList<record> *lista) : addressLista(lista ? lista : new QL
                             addToList(d2);
                             addToList(e2);
                             addToList(f2);
-                                addToList(b3);
+                            addToList(b3);
+}
+
+listaDati::~listaDati()
+{
+    delete addressLista;
 }
 
 void listaDati::addToList(const record& newRecord)
