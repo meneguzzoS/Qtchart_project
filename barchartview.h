@@ -20,7 +20,8 @@ private:
     //QChart* chart;
     QBarSeries *series;
 public:
-    barChartView(QWidget* = nullptr);
+    barChartView();
+    ~barChartView();
     void insertData(ChartData*) override;
     void setDesign(int,double);
 };

@@ -1,4 +1,3 @@
-#include "mainwindow.h"
 #include <QApplication>
 //#include "record.h"
 //#include <QDebug>

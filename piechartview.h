@@ -22,7 +22,8 @@ private:
 //    QChart* chart;
     QPieSeries* series;
 public:
-    pieChartView(QWidget* = nullptr);
+    pieChartView();
+    ~pieChartView();
     void insertData(ChartData*);
     void setDesign(QList<ChartData*>);
 };

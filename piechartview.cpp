@@ -1,6 +1,6 @@
 #include "piechartview.h"
 
-pieChartView::pieChartView(QWidget* parent) : view(parent)
+pieChartView::pieChartView()
 {
     chart = new QChart;
     series = new QPieSeries;
@@ -18,6 +18,11 @@ pieChartView::pieChartView(QWidget* parent) : view(parent)
     setLayout(mainLayout);
     setMinimumSize(800,500);
     //resize(size);
+}
+
+pieChartView::~pieChartView()
+{
+    delete this;
 }
 
 void pieChartView::insertData(ChartData* a)

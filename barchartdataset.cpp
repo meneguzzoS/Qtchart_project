@@ -12,6 +12,11 @@ barChartDataset::barChartDataset(const listaDati& l, int i) : year(i)
     }
 }
 
+barChartDataset::~barChartDataset()
+{
+//    delete this;
+}
+
 QList<ChartData*> barChartDataset::getData() const
 {
     return data;

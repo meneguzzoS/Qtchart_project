@@ -21,7 +21,8 @@ protected:
     QChart* chart;
     //QAbstractSeries *series; //verificare se ha senso ed è fattibile
 public:
-    view(QWidget* = nullptr);
+    view();
+    virtual ~view() = default;
     virtual void insertData(ChartData*) =0;
     void setDesign();
 };

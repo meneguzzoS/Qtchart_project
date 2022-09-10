@@ -13,7 +13,7 @@ listacontroller::listacontroller(listaDati* d,table* t) : dati(d), vista(t)
 
 listacontroller::~listacontroller()
 {
-//    if(select)
+    if(select)
         delete select;
 }
 
@@ -27,14 +27,24 @@ void listacontroller::deleteRow()
 
 void listacontroller::newRow()
 {
-    record nuovo;
-    nuovo.setName(vista->getName());
-    nuovo.setData(vista->getDate());
-    nuovo.setPIL(vista->getPil());
-    nuovo.setContinente(vista->getContinent());
-    dati->addToList(nuovo);
+    bool found = false;
+    for(record& aux : *(dati->getList())) {
+        if(aux.getName() == vista->getName() && aux.getData().year() == vista->getDate().year()) {
+            vista->showWarning(vista,"Record non valido","Il PIL dello stato inserito in quello specifico anno è già stato registrato");
+            found = true;
+        }
+    }
+    if(!found) {
+        record nuovo;
+        nuovo.setName(vista->getName());
+        nuovo.setData(vista->getDate());
+        nuovo.setPIL(vista->getPil());
+        nuovo.setContinente(vista->getContinent());
+        dati->addToList(nuovo);
 
-    vista->addRow(nuovo.getName(),nuovo.getPIL(),nuovo.getData(),nuovo.getContinente());
+        vista->addRow(nuovo.getName(),nuovo.getPIL(),nuovo.getData(),nuovo.getContinente());
+    }
+
 }
 
 void listacontroller::fromFiletoTable(QStringList data)
@@ -95,7 +105,7 @@ void listacontroller::barChart()
         delete m;
     }
     else {
-        barChartView *v = new barChartView(vista);
+        barChartView *v = new barChartView;
         ChartController c(m,v);
         v->show();
     }
@@ -115,7 +125,7 @@ void listacontroller::lineChart()
                 delete m;
             }
             else {
-                lineChartView* v = new lineChartView(vista);
+                lineChartView* v = new lineChartView;
                 ChartController c(m,v);
                 v->show();
             }
@@ -130,7 +140,7 @@ void listacontroller::pieChart()
         delete m;
     }
     else {
-        pieChartView* v = new pieChartView(vista);
+        pieChartView* v = new pieChartView;
         ChartController c(m,v);
         v->show();
     }

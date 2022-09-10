@@ -25,6 +25,7 @@ public:
     double getPil();
     QDate getDate();
     int getContinent();
+    void showWarning(QWidget*,const QString&,const QString&);
 private:
     QTableWidget *tabella;
     QPushButton *submitButton;

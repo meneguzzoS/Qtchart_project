@@ -81,7 +81,7 @@ table::table(listaDati* LC) : dataController(LC)
         quitButton = new QPushButton(tr("Annulla"));
         loadButton = new QPushButton(tr("Carica Dati"));
         printFileButton = new QPushButton(tr("Stampa su file"));
-        selectButton = new QPushButton(tr("Genere grafico"));
+        selectButton = new QPushButton(tr("Genera grafico"));
 
         buttonBox = new QDialogButtonBox(Qt::Horizontal);
         buttonBox->addButton(loadButton, QDialogButtonBox::ActionRole);
@@ -137,6 +137,11 @@ QDate table::getDate()
 int table::getContinent()
 {
     return continente->currentIndex();
+}
+
+void table::showWarning(QWidget *parent, const QString &title, const QString &text)
+{
+    QMessageBox::warning(parent, title, text, QMessageBox::Ok);
 }
 
 void table::addRow(QString nome,double pil,QDate data,MacroArea continente)

@@ -1,6 +1,6 @@
 #include "barchartview.h"
 
-barChartView::barChartView(QWidget* parent) : view(parent)
+barChartView::barChartView()
 {
     chart = new QChart;
     series = new QBarSeries;
@@ -18,6 +18,11 @@ barChartView::barChartView(QWidget* parent) : view(parent)
     mainLayout->addWidget(chartView);
     setLayout(mainLayout);
     setMinimumSize(800,500);
+}
+
+barChartView::~barChartView()
+{
+    delete this;
 }
 
 void barChartView::insertData(ChartData* s)

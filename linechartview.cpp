@@ -1,7 +1,7 @@
 #include "linechartview.h"
 
 
-lineChartView::lineChartView(QWidget* parent) : view(parent)
+lineChartView::lineChartView()
 {
     chart = new QChart();
     //QLineSeries *series = new QLineSeries;
@@ -17,31 +17,15 @@ lineChartView::lineChartView(QWidget* parent) : view(parent)
     QChartView *chartView = new QChartView(chart,this);
     chartView->setRenderHint(QPainter::Antialiasing);
 
-//    QT_CHARTS_NAMESPACE::QValueAxis *axisX = new QT_CHARTS_NAMESPACE::QValueAxis;
-//     axisX->setRange(0, this->series->points().length());
-//     axisX->setTickCount(10);
-//     axisX->setLabelFormat("%d");
-//     chartView->chart()->setAxisX(axisX, series);
-
-//     QT_CHARTS_NAMESPACE::QValueAxis *axisY = new QT_CHARTS_NAMESPACE::QValueAxis;
-//     axisY->setRange(0, 50);
-//     axisY->setTickCount(1);
-//     axisY->setLabelFormat("%d");
-//     chartView->chart()->setAxisY(axisY, series);
-
-    /*QValueAxis* axisY = new QValueAxis();
-        axisY->setRange(0,6000);
-        chart->addAxis(axisY, Qt::AlignLeft);
-        //series->attachAxis(axisY);
-        QValueAxis* axisX = new QValueAxis();
-                axisX->setRange(0,6000);
-                chart->addAxis(axisX, Qt::AlignBottom);
-              //series->attachAxis(axisX);*/
-
     QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->addWidget(chartView);
     setLayout(mainLayout);
     setMinimumSize(800,500);
+}
+
+lineChartView::~lineChartView()
+{
+    delete this;
 }
 
 void lineChartView::insertData(ChartData* d)

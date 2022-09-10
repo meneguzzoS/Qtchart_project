@@ -21,7 +21,8 @@ private:
 //    QChart *chart;
     QLineSeries *series;
 public:
-    lineChartView(QWidget* = nullptr);
+    lineChartView();
+    ~lineChartView();
     void insertData(ChartData*);
     void setDesign(double,double);
 };

@@ -8,14 +8,14 @@
 #include <QFileDialog>
 #include <QTextStream>
 #include <QDebug>
-//#include "table.h"
-class table;
+#include "table.h"
+//class table;
 
 class fileHandler : QObject
 {
 Q_OBJECT
 private:
-    table* tabella;
+    table* vista;
 public:
     fileHandler(table*,QObject* = nullptr);
 public slots:
