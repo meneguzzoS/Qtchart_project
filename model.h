@@ -12,7 +12,6 @@ struct ChartData {
 class model
 {
 protected:
-    //struct ChartData;
     QList<ChartData*> data;
 public:
     model();

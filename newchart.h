@@ -5,7 +5,6 @@
 #include <QRadioButton>
 #include <QPushButton>
 #include <QSpinBox>
-//#include "view.h"
 #include "piechartdataset.h"
 #include "piechartview.h"
 #include "barchartdataset.h"

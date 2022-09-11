@@ -9,7 +9,6 @@ model::~model()
 {
     for(auto& a : data)
         delete a;
-
 }
 
 int model::getYear() const

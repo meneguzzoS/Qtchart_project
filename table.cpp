@@ -79,7 +79,7 @@ table::table(listaDati* LC) : datalist(LC)
         removeButton = new QPushButton(tr("Rimuovi"));
         quitButton = new QPushButton(tr("Annulla"));
         loadButton = new QPushButton(tr("Carica Dati"));
-        printFileButton = new QPushButton(tr("Stampa su file"));
+        printFileButton = new QPushButton(tr("Salva"));
         selectButton = new QPushButton(tr("Genera grafico"));
 
         buttonBox = new QDialogButtonBox(Qt::Horizontal);

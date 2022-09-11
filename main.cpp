@@ -1,11 +1,5 @@
 #include <QApplication>
-//#include "record.h"
-//#include <QDebug>
-//#include <iostream>
-//#include "table.h"
 #include "listadati.h"
-//#include "barchartview.h"
-//#include "barchartdataset.h"
 #include "listacontroller.h"
 #include "table.h"
 

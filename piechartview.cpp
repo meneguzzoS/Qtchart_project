@@ -9,7 +9,6 @@ pieChartView::pieChartView()
     chart->legend()->setVisible(true);
     chart->legend()->setAlignment(Qt::AlignBottom);
     chart->setTheme(QChart::ChartThemeDark);
-    //chart->setAnimationOptions(QChart::AllAnimations);
     chart->setAnimationDuration(1500);
     QChartView* chartView = new QChartView(chart,this);
     chartView->setRenderHint(QPainter::Antialiasing);
@@ -18,7 +17,6 @@ pieChartView::pieChartView()
     setLayout(mainLayout);
     resize(1000,700);
     setMinimumSize(800,500);
-    //resize(size);
 }
 
 pieChartView::~pieChartView()
@@ -46,6 +44,4 @@ void pieChartView::setDesign(const QList<ChartData*> s)
         slice->setLabelPosition(QPieSlice::LabelOutside);
         i++;
     }
-//    QValueAxis* axisX = new QValueAxis;
-    //axisX->setLabelFormat("%d");
 }

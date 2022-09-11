@@ -3,9 +3,6 @@
 
 #include "piechartdataset.h"
 #include <QWidget>
-//#include <QtWidgets/QApplication>
-//#include <QtWidgets/QMainWindow>
-//#include <QtCharts/QChartView>
 #include <QtCharts/QPieSeries>
 #include <QtCharts/QPieSlice>
 #include <QHBoxLayout>
@@ -18,8 +15,6 @@ class pieChartView: public view
 {
     Q_OBJECT
 private:
-    //pieChartDataset *dati;
-//    QChart* chart;
     QPieSeries* series;
 public:
     pieChartView();

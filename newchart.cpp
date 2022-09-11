@@ -38,8 +38,6 @@ newChart::newChart(listaDati* LC, QWidget* parent) : list(LC), QDialog(parent)
         buttongrafico->setSpacing(20);
         ok=new QPushButton(tr("ok"));
         annulla=new QPushButton(tr("Annulla"));
-        //ok->setFont(QFont("Times",18,QFont::Black));
-        //annulla->setFont(QFont("Times",18,QFont::Black));
         tipografico->setLayout(buttongrafico);
         QDialogButtonBox* button=new QDialogButtonBox(Qt::Horizontal);
         button->addButton(ok,QDialogButtonBox::ActionRole);
@@ -99,10 +97,10 @@ void newChart::pieChecked()
 
 void newChart::createChart()
 {
-        if(barchart->isChecked())
-            emit bar();
-        if(linechart->isChecked())
-            emit line();
-        if(piechart->isChecked())
-            emit pie();
+    if(barchart->isChecked())
+        emit bar();
+    if(linechart->isChecked())
+        emit line();
+    if(piechart->isChecked())
+        emit pie();
 }

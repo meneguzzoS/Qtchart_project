@@ -6,11 +6,9 @@
 struct state : public ChartData {
     double pil;
 };
-//class listaController;
 class barChartDataset : public model
 {
 private:
-//    QList<ChartData*> data;
     int year;
 public:
     barChartDataset(const listaDati&, int);

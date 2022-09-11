@@ -1,7 +1,6 @@
 #ifndef FILEHANDLER_H
 #define FILEHANDLER_H
 
-//#include"record.h"
 #include "listadati.h"
 #include <QString>
 #include <QFile>
@@ -9,7 +8,6 @@
 #include <QTextStream>
 #include <QDebug>
 #include "table.h"
-//class table;
 
 class fileHandler : QObject
 {

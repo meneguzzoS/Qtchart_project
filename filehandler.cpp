@@ -38,13 +38,16 @@ void fileHandler::saveFile()
 {
 
     // Creazione oggetto "destinazione"
-    QString filename = QFileDialog::getOpenFileName(vista, "Seleziona il tuo file di destinazione", QDir::homePath(), "CSV File (*.csv)");
+    QString filename = QFileDialog::getSaveFileName(vista, "Seleziona il tuo file di destinazione", QDir::homePath(), "CSV File (*.csv)");
     if(filename=="") {
         vista->showWarning(vista,"Errore file","Nessun file selezionato");
     }
     else {
+        int lastPoint = filename.lastIndexOf(".");
+        QString fileNameNoExt = filename.left(lastPoint);
+        fileNameNoExt.append(".csv");
 
-        QFile targetFile(filename);
+        QFile targetFile(fileNameNoExt);
 
         // Apertura file in scrittura
         if(!targetFile.open(QFile::WriteOnly | QFile::Text)) {

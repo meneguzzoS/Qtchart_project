@@ -46,7 +46,6 @@ void lineChartView::insertData(ChartData* d)
 void lineChartView::setDesign(double min, double max)
 {
     chart->createDefaultAxes();
-
     chart->axisX()->setLabelsVisible();
     chart->axisX()->setTitleText("Anni di riferimento");
     chart->axisY()->setTitleText("PIL Stati (in mln)");

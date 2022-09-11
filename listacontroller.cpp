@@ -68,7 +68,6 @@ void listacontroller::fromFiletoTable(QStringList data)
 
 void listacontroller::changeRecord()
 {
-//    qDebug() << vista->getTable()->currentRow() << vista->getTable()->currentColumn();
     record& change = const_cast<record&>(dati->getListData(vista->getTable()->currentRow()));
 
     switch(vista->getTable()->currentColumn()) {

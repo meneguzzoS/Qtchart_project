@@ -49,12 +49,6 @@ void barChartView::setDesign(int year, double max)
 
     QValueAxis *axisY = new QValueAxis();
     axisY->setRange(0,max+5000);
-//    qDebug() << min << max;
-//    for(auto& a : d->getData()) {
-//        state* p = dynamic_cast<state*>(a);
-//        if(p)
-//        qDebug() << p->nome << p->pil;
-//    }
 
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);

@@ -51,7 +51,6 @@ signals:
     void charts();
 public slots:
     void addRow(QString,double,QDate,MacroArea);
-//    void SelectChart();
     void importData(const QStringList&);
 };
 

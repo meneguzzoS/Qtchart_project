@@ -8,11 +8,8 @@ struct stateData : public ChartData {
     QList<int> years;
 };
 
-//class listaController;
 class lineChartDataset : public model
 {
-private:
-//    QList<ChartData*> data;
 public:
     lineChartDataset(const listaDati&,const QList<int>&); //o anche QList<QData.year()>
     QList<ChartData*> getData() const override;
