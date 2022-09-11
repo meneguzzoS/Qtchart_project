@@ -16,6 +16,7 @@ pieChartView::pieChartView()
     QHBoxLayout* mainLayout = new QHBoxLayout;
     mainLayout->addWidget(chartView);
     setLayout(mainLayout);
+    resize(1000,700);
     setMinimumSize(800,500);
     //resize(size);
 }
@@ -35,7 +36,7 @@ void pieChartView::insertData(ChartData* a)
 
 }
 
-void pieChartView::setDesign(QList<ChartData*> s)
+void pieChartView::setDesign(const QList<ChartData*> s)
 {
     int i = 0;
     for(QPieSlice* slice : series->slices()) {

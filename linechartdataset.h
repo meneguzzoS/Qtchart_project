@@ -15,7 +15,6 @@ private:
 //    QList<ChartData*> data;
 public:
     lineChartDataset(const listaDati&,const QList<int>&); //o anche QList<QData.year()>
-//    ~lineChartDataset();
     QList<ChartData*> getData() const override;
     double getMax() const override;
     double getMin() const override;

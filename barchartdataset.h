@@ -14,11 +14,10 @@ private:
     int year;
 public:
     barChartDataset(const listaDati&, int);
-    ~barChartDataset();
-    QList<ChartData*> getData() const;
-    int getYear() const;
-    double getMax() const;
-    double getMin() const;
+    QList<ChartData*> getData() const override;
+    int getYear() const override;
+    double getMax() const override;
+    double getMin() const override;
 };
 
 #endif // BARCHARTDATASET_H

@@ -20,6 +20,7 @@ lineChartView::lineChartView()
     QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->addWidget(chartView);
     setLayout(mainLayout);
+    resize(1000,700);
     setMinimumSize(800,500);
 }
 

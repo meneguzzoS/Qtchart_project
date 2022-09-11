@@ -21,8 +21,6 @@ public:
     QDate getData(int) const;
     double getPIL(int) const;
     MacroArea getContinente(int) const;
-    void InsertRecord(QString, QDate, double, int);
-    void fromTableToList(QStringList);
 private:
     QList<record> *addressLista;
 };

@@ -19,7 +19,6 @@ private:
     int year;
 public:
     pieChartDataset(const listaDati&,int);
-//    ~pieChartDataset();
     QList<ChartData*> getData() const override;
     int getYear() const override;
 };

@@ -39,7 +39,7 @@ private:
     QDoubleSpinBox* PIL;
     QDateEdit* data;
     QComboBox* continente;
-    listaDati *dataController;
+    listaDati *datalist;
 signals:
     void openFile();
     void createTable();

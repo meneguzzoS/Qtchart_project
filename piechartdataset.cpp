@@ -6,6 +6,7 @@ pieChartDataset::pieChartDataset(const listaDati& lista, int i) : year(i)
         int x=0;
         int n=0;
         for(QList<record>::const_iterator cit = lista.getList()->begin(); cit != lista.getList()->end(); ++cit) {
+            qDebug() << (*cit).getName() << (*cit).getContinente();
             if((*cit).getContinente() == cont && (*cit).getData().year() == i) {
                 x+=(*cit).getPIL();
                 n++;
@@ -44,12 +45,6 @@ pieChartDataset::pieChartDataset(const listaDati& lista, int i) : year(i)
         }
     }
 }
-
-//pieChartDataset::~pieChartDataset()
-//{
-//    for(auto& a : data)
-//        delete a;
-//}
 
 QList<ChartData*> pieChartDataset::getData() const
 {

@@ -21,12 +21,6 @@ lineChartDataset::lineChartDataset(const listaDati& l,const QList<int>& y)
     }
 }
 
-//lineChartDataset::~lineChartDataset()
-//{
-//    for(auto& a : data)
-//        delete a;
-//}
-
 QList<ChartData*> lineChartDataset::getData() const
 {
     return data;

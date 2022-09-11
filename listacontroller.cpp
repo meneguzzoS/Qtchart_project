@@ -28,8 +28,8 @@ void listacontroller::deleteRow()
 void listacontroller::newRow()
 {
     bool found = false;
-    for(record& aux : *(dati->getList())) {
-        if(aux.getName() == vista->getName() && aux.getData().year() == vista->getDate().year()) {
+     for(QList<record>::const_iterator cit = dati->getList()->begin(); cit!=dati->getList()->end(); cit++) {
+        if((*cit).getName() == vista->getName() && (*cit).getData().year() == vista->getDate().year()) {
             vista->showWarning(vista,"Record non valido","Il PIL dello stato inserito in quello specifico anno è già stato registrato");
             found = true;
         }
@@ -77,13 +77,13 @@ void listacontroller::changeRecord()
     case 2: change.setData(QDate::fromString(QString(vista->getTable()->currentItem()->text()), "dd.MM.yyyy")); break;
     case 3: if(vista->getTable()->currentItem()->text()=="Europa")
             change.setContinente(0);
-        if(vista->getTable()->currentItem()->text()=="Europa")
+        if(vista->getTable()->currentItem()->text()=="Asia")
             change.setContinente(1);
-        if(vista->getTable()->currentItem()->text()=="Europa")
+        if(vista->getTable()->currentItem()->text()=="America")
             change.setContinente(2);
-        if(vista->getTable()->currentItem()->text()=="Europa")
+        if(vista->getTable()->currentItem()->text()=="Africa")
             change.setContinente(3);
-        if(vista->getTable()->currentItem()->text()=="Europa")
+        if(vista->getTable()->currentItem()->text()=="Oceania")
             change.setContinente(4);
     }
 }
@@ -99,7 +99,7 @@ void listacontroller::selectChart()
 
 void listacontroller::barChart()
 {
-    barChartDataset *m = new barChartDataset(*dati,select->getFirstDate());
+    barChartDataset* m = new barChartDataset(*dati,select->getFirstDate());
     if(m->isEmpty()) {
         select->showWarning(select,"Errore data","Nella data inserita non sono presenti PIL da poter inserire nel grafico");
         delete m;
@@ -114,7 +114,7 @@ void listacontroller::barChart()
 void listacontroller::lineChart()
 {
     if(select->getFirstDate() >= select->getSecondDate())
-        select->showWarning(select,"Errore data","Data iniziale maggiore di data finale");
+        select->showWarning(select,"Errore data","Data iniziale maggiore o uguale di data finale");
     else {
         QList<int> years;
         for(int i = select->getFirstDate(); i <= select->getSecondDate(); i++)

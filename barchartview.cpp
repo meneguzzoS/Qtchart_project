@@ -17,6 +17,7 @@ barChartView::barChartView()
     QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->addWidget(chartView);
     setLayout(mainLayout);
+    resize(1000,700);
     setMinimumSize(800,500);
 }
 
@@ -32,6 +33,7 @@ void barChartView::insertData(ChartData* s)
         QBarSet* set = new QBarSet(p->nome);
         *set << p->pil;
         series->append(set);
+        set->setLabelColor(QColor::Cmyk);
     }
 
 }

@@ -1,6 +1,6 @@
 #include "table.h"
 
-table::table(listaDati* LC) : dataController(LC)
+table::table(listaDati* LC) : datalist(LC)
 {
         setWindowTitle("Tabella prodotti");
         setGeometry(180,100,1300,800);
@@ -8,28 +8,27 @@ table::table(listaDati* LC) : dataController(LC)
         //creazione tabella
         tabella = new QTableWidget;
         tabella->setColumnCount(4);
-        tabella->setRowCount(dataController->listaSize());
+        tabella->setRowCount(LC->listaSize());
         tabella->setMinimumSize(550,500);
         tabella->horizontalHeader()->setStretchLastSection(true);
-//        tabella->verticalHeader()->setStretchLastSection(true);
 
         QStringList header;
         header<<"Nome Stato"<<"PIL (mld)"<<"Data"<<"Continente";
         tabella->setHorizontalHeaderLabels(header);
 
-        //riempire tabella con record in lista
+        //riempire tabella con record in lista se presenti
         QTableWidgetItem *item;
         for(int i=0; i<tabella->rowCount(); i++) {
             for(int j=0; j<tabella->columnCount(); j++) {
                 item = new QTableWidgetItem;
                 switch(j) {
-                case 0: item->setText(QString(dataController->getName(i)));
+                case 0: item->setText(QString(LC->getName(i)));
                     break;
-                case 1: item->setText(QString::number(dataController->getPIL(i)));
+                case 1: item->setText(QString::number(LC->getPIL(i)));
                     break;
-                case 2: item->setText(QString(dataController->getData(i).toString("dd.MM.yyyy")));
+                case 2: item->setText(QString(LC->getData(i).toString("dd.MM.yyyy")));
                     break;
-                case 3: switch(dataController->getContinente(i)) { //OTTIMIZZARE
+                case 3: switch(LC->getContinente(i)) { //OTTIMIZZARE
                     case Europa: item->setText(QString("Europa")); break;
                     case Asia: item->setText(QString("Asia")); break;
                     case America : item->setText(QString("America")); break;
@@ -148,12 +147,12 @@ void table::addRow(QString nome,double pil,QDate data,MacroArea continente)
 {
     int row = tabella->rowCount();
     tabella->insertRow(row);
-    tabella->setItem(row, 0, new QTableWidgetItem(nome));
+    tabella->setItem(row, 0,new QTableWidgetItem(nome));
     tabella->setItem(row, 1, new QTableWidgetItem(QString::number(pil)));
     tabella->setItem(row, 2, new QTableWidgetItem(data.toString("dd.MM.yyyy")));
     switch(continente) {
     case Europa: tabella->setItem(row, 3, new QTableWidgetItem("Europa")); break;
-    case Asia: tabella->setItem(row, 3, new QTableWidgetItem("Asia")); break;
+    case Asia: tabella->setItem(row, 3, new QTableWidgetItem("Asia"));qDebug(); break;
     case America: tabella->setItem(row, 3, new QTableWidgetItem("America")); break;
     case Africa: tabella->setItem(row, 3, new QTableWidgetItem("Africa")); break;
     case Oceania: tabella->setItem(row, 3, new QTableWidgetItem("Oceania")); break;
@@ -174,14 +173,5 @@ void table::importData(const QStringList& data)
 
     //inserisco elementi appena presi dal file nella lista
     emit fileTable(data);
-
-//    for(int i=0; i<dataController->listaSize();i++) {
-//        qDebug() << dataController->getList()->at(i).getName() << dataController->getList()->at(i).getPIL() << dataController->getList()->at(i).getData() << dataController->getList()->at(i).getContinente();
-//    }
 }
 
-//void table::SelectChart()
-//{
-//    newChart *select = new newChart(dataController);
-//    select->show();
-//}
