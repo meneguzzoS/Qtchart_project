@@ -2,7 +2,6 @@
 #define LISTADATI_H
 
 #include "record.h"
-#include <QDebug>
 
 class listaDati
 {

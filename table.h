@@ -10,7 +10,6 @@
 #include <QDateEdit>
 #include <QTableWidget>
 #include <QTableWidgetItem>
-#include <QDebug>
 #include <QtWidgets>
 #include <QFileDialog>
 #include <QDir>

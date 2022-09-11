@@ -1,11 +1,9 @@
 #include "chartcontroller.h"
-#include "QDebug"
 
 ChartController::ChartController(model* m,view* v) : dati(m), vista(v)
 {
     for(auto& l : m->getData()) {
             v->insertData(l);
-            qDebug()<<l->nome;
     }
     barChartView* bar = dynamic_cast<barChartView*>(v);
     if(bar) {

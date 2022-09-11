@@ -17,7 +17,6 @@
 #include <QVBoxLayout>
 #include <QGroupBox>
 #include <QMessageBox>
-#include <QDebug>
 #include "chartcontroller.h"
 
 class newChart : public QDialog
@@ -33,8 +32,6 @@ private:
     QList<int>* year;
     QSpinBox *firstdate;
     QSpinBox *secondDate;
-     //int n;
-     //QSpinBox* ndati;
      QPushButton* ok;
      QPushButton* annulla;
      QRadioButton* piechart;

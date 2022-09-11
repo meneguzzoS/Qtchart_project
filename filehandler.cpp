@@ -1,5 +1,4 @@
 #include "filehandler.h"
-#include "table.h"
 
 fileHandler::fileHandler(table* t, QObject* parent) : vista(t), QObject(parent)
 {
@@ -10,7 +9,6 @@ fileHandler::fileHandler(table* t, QObject* parent) : vista(t), QObject(parent)
 void fileHandler::readFile()
 {
     QString filename = QFileDialog::getOpenFileName(vista, "Apri il tuo file", QDir::homePath(), "CSV File (*.csv)");
-    qDebug()<<filename;
     if(filename=="") {
         vista->showWarning(vista,"Errore file","Nessun file selezionato");
     }

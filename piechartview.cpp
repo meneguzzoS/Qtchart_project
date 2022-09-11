@@ -29,7 +29,6 @@ void pieChartView::insertData(ChartData* a)
     AvgContinent* p = dynamic_cast<AvgContinent*>(a);
     if(p) {
         series->append(p->nome,p->media);
-        qDebug() << p->nome << p->media;
     }
 
 }

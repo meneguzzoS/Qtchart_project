@@ -152,7 +152,7 @@ void table::addRow(QString nome,double pil,QDate data,MacroArea continente)
     tabella->setItem(row, 2, new QTableWidgetItem(data.toString("dd.MM.yyyy")));
     switch(continente) {
     case Europa: tabella->setItem(row, 3, new QTableWidgetItem("Europa")); break;
-    case Asia: tabella->setItem(row, 3, new QTableWidgetItem("Asia"));qDebug(); break;
+    case Asia: tabella->setItem(row, 3, new QTableWidgetItem("Asia")); break;
     case America: tabella->setItem(row, 3, new QTableWidgetItem("America")); break;
     case Africa: tabella->setItem(row, 3, new QTableWidgetItem("Africa")); break;
     case Oceania: tabella->setItem(row, 3, new QTableWidgetItem("Oceania")); break;

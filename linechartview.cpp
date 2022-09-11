@@ -35,7 +35,6 @@ void lineChartView::insertData(ChartData* d)
 
         for(int i=0; i<p->values.size(); i++) { //values da controllare
             series->append(p->years.at(i) , p->values.at(i));
-            qDebug() << i << p->years.at(i) << p->values.at(i);
         }
         chart->addSeries(series);
         series->setPointsVisible();
@@ -46,7 +45,6 @@ void lineChartView::insertData(ChartData* d)
 void lineChartView::setDesign(double min, double max)
 {
     chart->createDefaultAxes();
-
     chart->axisX()->setLabelsVisible();
     chart->axisX()->setTitleText("Anni di riferimento");
     chart->axisY()->setTitleText("PIL Stati (in mln)");

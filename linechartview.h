@@ -6,7 +6,6 @@
 #include "view.h"
 #include "QChart"
 #include "QVBoxLayout"
-#include <QDebug>
 #include <QXYSeries>
 
 QT_CHARTS_USE_NAMESPACE

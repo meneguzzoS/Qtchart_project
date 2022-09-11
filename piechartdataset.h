@@ -3,7 +3,6 @@
 
 #include "record.h"
 #include "model.h"
-#include "QDebug"
 
 
 struct AvgContinent : public ChartData {

@@ -7,7 +7,6 @@
 #include <QtCharts/QPieSlice>
 #include <QHBoxLayout>
 #include "view.h"
-#include <QDebug>
 #include <QValueAxis>
 
 QT_CHARTS_USE_NAMESPACE

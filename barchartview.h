@@ -7,7 +7,6 @@
 #include <QHBoxLayout>
 #include <QBarCategoryAxis>
 #include <QValueAxis>
-#include "QDebug"
 
 QT_CHARTS_USE_NAMESPACE
 
